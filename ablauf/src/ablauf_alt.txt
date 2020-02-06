@@ -1,0 +1,11 @@
+@startuml
+|AGI|
+start
+:Schema erstellen;
+:Technische Metadaten erfassen;
+|Fachamt|
+:Datensatz dokumentieren;
+|AGI|
+:Datenabgabe freigeben;
+end
+@enduml

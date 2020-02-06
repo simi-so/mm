@@ -1,0 +1,24 @@
+@startuml
+|Gemeinsam|
+start
+:Modell erstellen;
+|AGI|
+:Modell in DB anlegen;
+fork
+:Technische Metadaten erfassen;
+|Fachamt|
+fork again
+:Dokumentieren
+(Tabellen und Attribute);
+|Gemeinsam|
+end fork
+:Publikationen prüfen;
+:Publikationen freigeben;
+note left
+  Umfasst:
+  * Web GIS Client
+  * Datenabgabe
+  * Berechtigungen für DB-Direktzugriff
+end note
+end
+@enduml
