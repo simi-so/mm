@@ -6,4 +6,4 @@ RUN wget "http://downloads.sourceforge.net/project/plantuml/${PLANTUML_VERSION}/
 #RUN ["java", "-Djava.awt.headless=true", "-jar", "plantuml.jar", "-version"]
 #RUN ["dot", "-version"]
 ENTRYPOINT ["java", "-Djava.awt.headless=true", "-jar", "plantuml.jar", "-p"]
-CMD ["-tsvg"]
+#CMD ["-tsvg"]
