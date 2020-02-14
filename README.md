@@ -12,9 +12,9 @@
 * Vordergrund-Karte (Map) mit LG1 und FL2: 
   * Je ein Eintrag in DSL fuer LG1 und FL2.
   * FL2 hat einen, LG1 mehrere Eintraege in der PIL.
-* Hintergrund-Karte (Map) mit FL3 und FL4
-  * Je ein Eintrag in DSL fuer FL3 und FL4 mir foreground=false.
-  * FL3 und FL4 haben je einen Eintrag in der PIL
+* Hintergrund-Karte (Map) mit FL3 und FL4.
+  * Je ein Eintrag in DSL fuer FL3 und FL4.
+  * FL3 und FL4 haben je einen Eintrag in der PIL.
     
 ### Baumtiefe (Theoretisch unendliche Verschachtelung von DataProducts)
     
@@ -28,6 +28,14 @@ Die Unterscheidung, ob eine Tabelle eine Geometriespalte hat oder nicht erfolgt 
 und nicht über eine Assoziation. Die DataSetView entspricht neu der Klasse VectorDS. Im eher seltenen Fall der 
 Publikation einer "Geotabelle" mit mehreren Darstellungen / unterschiedlichen Berechtigungen, ... müssen 
 entsprechend mehrere VectorDS-Objekte erfasst werden. 
+
+### DataSetList (DSL)
+
+Ist ein "Konfigurations-Baustein", welcher via Layergruppe und Map mehrfach genutzt werden kann. Der Inhalt einer DSL
+muss einen engen thematischen Kontext haben (Im Gegensatz zur Map).
+
+**Transparenz**: In der PIL kann die Default-Transparenz eines DataSet (siehe Package Data) überschrieben werden.
+Die Transparenz eines FL kann nicht überschrieben werden.
 
 ### Layergroup
 
