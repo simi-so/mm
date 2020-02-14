@@ -37,11 +37,6 @@ package Map {
     transparency: int
   }
   
-  class "PropertiesInSet (PIS)" as pis << (H, grey) Association Class >> {
-    rank* : int
-    isForegroundList* : bool
-  }
-  
   dp <|-- ps
   ps <|-- lg
   ps <|-- map
@@ -50,13 +45,12 @@ package Map {
   sl <|-- ds
   sl <|-- fl
   
-  ps "0..*" - "1..*" dsl : [Class: PIS]
+  ps "0..*" - "1..*" dsl : [ordered]
   
   dsl "0..*" - "1..*" sl : [Class: PIL]  
   fl "0..*" - "1..*" ds : [Class: PIL]
   
   ' layout help
-  sl -[hidden]> pis
-  ds -[hidden]> pil
+  sl -[hidden]> pil
 }
 @enduml
