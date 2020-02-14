@@ -14,10 +14,12 @@ package Map {
   abstract class "ProductSet (PS)" as ps
   class "LayerGroup (LG)" as lg
 
-  class "Map (MAP)" as map
+  class "Map (MAP)" as map {
+    foreground* : bool
+  }
   
   class "DataSetList (DSL)" as dsl {
-    foreground* : bool
+    name* : string
     remarks : string
   }
   
@@ -29,13 +31,13 @@ package Map {
     remark : string
   }
   
-  class "PropertiesInList (PIL)" as pil << (H, grey) Ass. Class >> {
+  class "PropertiesInList (PIL)" as pil << (H, grey) Association Class >> {
   	visibility*: bool
     rank*: int
     transparency: int
   }
   
-  class "PropertiesInSet (PIS)" as pis << (H, grey) Ass. Class >> {
+  class "PropertiesInSet (PIS)" as pis << (H, grey) Association Class >> {
     rank* : int
     isForegroundList* : bool
   }
@@ -48,10 +50,10 @@ package Map {
   sl <|-- ds
   sl <|-- fl
   
-  ps "0..*" - "1..*" dsl : [ass. class: PIS]
+  ps "0..*" - "1..*" dsl : [Class: PIS]
   
-  dsl "0..*" - "1..*" sl : [ass. class: PIL]  
-  fl "0..*" - "1..*" ds : [ass. class: PIL]
+  dsl "0..*" - "1..*" sl : [Class: PIL]  
+  fl "0..*" - "1..*" ds : [Class: PIL]
   
   ' layout help
   sl -[hidden]> pis
