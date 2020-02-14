@@ -1,0 +1,61 @@
+@startuml
+package Map {
+  abstract class "DataProduct (DP)" as dp {
+      identifier : string
+      title: string
+      synonyms: string
+      description: string
+      keywords: string
+      remarks: string
+      inWms : bool
+      inWGC : bool
+  }
+  
+  abstract class "ProductSet (PS)" as ps
+  class "LayerGroup (LG)" as lg
+
+  class "Map (MAP)" as map
+  
+  class "DataSetList (DSL)" as dsl {
+    foreground : bool
+    remarks : string
+  }
+  
+  abstract class "SingleLayer (SL)" as sl
+  class "FacadeLayer (FL)" as fl
+  class "DataSet (DS)" as ds {
+  	remark : string
+    owner : reference
+    dataPublished : bool
+  }
+  
+  class "PropertiesInList (PIL)" as pil << (H, grey) Ass. Class >> {
+  	visibility: bool
+    transparency: int
+    rank: int
+  }
+  
+  class "PropertiesInSet (PIS)" as pis << (H, grey) Ass. Class >> {
+    rank : int
+    isForegroundList : bool
+    isForegroundList : bool
+  }
+  
+  dp <|-- ps
+  ps <|-- lg
+  ps <|-- map
+  
+  dp <|-- sl
+  sl <|-- ds
+  sl <|-- fl
+  
+  ps "0..*" - "1..*" dsl : [ass. class: PIS]
+  
+  dsl "0..*" - "1..*" sl : [ass. class: PIL]  
+  fl "0..*" - "1..*" ds : [ass. class: PIL]
+  
+  ' layout help
+  sl -[hidden]> pis
+  ds -[hidden]> pil
+}
+@enduml

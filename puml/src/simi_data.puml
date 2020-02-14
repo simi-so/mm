@@ -1,0 +1,44 @@
+@startuml
+
+package Data {
+  abstract class "DataSet (DS)" as ds << package Map >>
+  
+  class "PostgresDS" as pds {
+    tablename* : string
+    inDataServices* : bool
+    idField : string
+    whereClause : string
+  }
+  
+  class "Attributes" as attr {
+    name* : string
+    alias : string
+    description : string
+    wgc_format : string
+  }
+  
+  class "VectorDS" as vds {
+    def_transparency* : int
+    qml_content* : string
+    geom_column : string
+  }
+  
+  class "RasterDS" as rds {
+    def_transparency* : int
+    filepath* : string
+  }
+  
+  class "PostgresSource" as pgsrc {
+    database* : string
+    schema* : string
+  }
+  
+  ds <|-- rds
+  ds <|-- pds
+  pds <|-- vds
+  
+  pds "1..*" --* "1" pgsrc
+  pds "1" *-- "0..*" attr
+}
+
+@enduml
