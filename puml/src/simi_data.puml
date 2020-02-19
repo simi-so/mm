@@ -1,7 +1,10 @@
 @startuml
 
 package Data {
-  abstract class "DataSet (DS)" as ds << package Map >>
+
+  class "SingleLayer (SL)" as sl << package Map >>
+
+  abstract class "DataSet (DS)" as ds
   
   class "PostgresDS" as pds {
     tablename* : string
@@ -36,6 +39,8 @@ package Data {
   ds <|-- rds
   ds <|-- pds
   pds <|-- vds
+
+  sl "*" -- "1..*" ds : [version: current, next]
   
   pds "1..*" --* "1" pgsrc
   pds "1" *-- "0..*" attr

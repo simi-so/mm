@@ -1,4 +1,5 @@
 @startuml
+
 package Map {
   abstract class "DataProduct (DP)" as dp {
       identifier* : string
@@ -23,9 +24,11 @@ package Map {
     remarks : string
   }
   
-  abstract class "SingleLayer (SL)" as sl
+  abstract class "SingleActor (SA)" as sa
+
   class "FacadeLayer (FL)" as fl
-  abstract class "DataSet (DS)" as ds {
+
+  class "SingleLayer (SL)" as sl {
     owner* : reference
     dataPublished* : bool
     remark : string
@@ -41,16 +44,17 @@ package Map {
   ps <|-- lg
   ps <|-- map
   
-  dp <|-- sl
-  sl <|-- ds
-  sl <|-- fl
+  dp <|-- sa
+  sa <|-- sl
+  sa <|-- fl
   
   ps "0..*" - "1..*" dsl : [ordered]
   
-  dsl "0..*" - "1..*" sl : [Class: PIL]  
-  fl "0..*" - "1..*" ds : [Class: PIL]
+  dsl "0..*" - "1..*" sa : [Class: PIL]  
+  fl "0..*" - "1..*" sl : [Class: PIL]
   
   ' layout help
-  sl -[hidden]> pil
+  sa -[hidden]> pil
 }
+
 @enduml
