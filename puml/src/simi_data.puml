@@ -2,7 +2,9 @@
 
 package Data {
 
-  class "SingleLayer (SL)" as sl << package Map >>
+  class "SingleLayer (SL)" as sl << package Map >> {
+    void check_has(ref<ds[current]>)
+  }
 
   abstract class "DataSet (DS)" as ds {
     version* : enum
