@@ -1,21 +1,54 @@
 @startuml
 |AGI|
 start
+
 :Modell erstellen;
+
 :Modell in DB anlegen;
-:Technische Metainformationen erfassen;
+
 |Fachamt|
-:Technische Metainformationen 
-gegenpruefen;
-:Dokumentieren
-(Bezeichnungen und 
-Beschreibungen ergaenzen);
+:Darstellung (QML)
+erstellen;
+
 |AGI|
-:Dokumentation gegenpruefen;
-:Publikationen freigeben
-  Umfasst:
-  * Web GIS Client
-  * Datenabgabe
-  * Berechtigungen fuer DB-Direktzugriff;
+:Technische Metain-
+formationen erfassen;
+
+note left
+- Datenquelle
+- Darstellung DataSet
+- Gruppierungen
+- Identifier der DataProducts
+end note
+
+|Fachamt|
+:Technische
+Metainformationen
+gegenpruefen;
+
+:Dokumentieren;
+
+note right
+- Titel
+- Beschreibung
+- Stichworte / Synonyme
+- Infos zu Erhebung / Nachfuerung
+- Attributbeschreigung
+end note
+
+|AGI|
+:Dokumentation
+gegenpruefen;
+
+:Publikationen
+freigeben;
+
+note left
+Freigabe unfasst:
+- Web GIS Client
+- Datenabgabe (via Dienste und Dateien)
+- Berechtigungen fuer DB-Direktzugriff
+end note
+
 end
 @enduml

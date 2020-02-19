@@ -25,7 +25,7 @@ package Map {
   
   abstract class "SingleLayer (SL)" as sl
   class "FacadeLayer (FL)" as fl
-  class "DataSet (DS)" as ds {
+  abstract class "DataSet (DS)" as ds {
     owner* : reference
     dataPublished* : bool
     remark : string

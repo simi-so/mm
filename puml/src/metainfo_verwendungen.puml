@@ -1,0 +1,44 @@
+@startuml
+database " " {
+	component "Meta-DB" as mdb
+    () "**json view**" as fi
+    () "**dataprod srv**" as ri
+    fi - mdb
+    mdb - ri
+}
+
+component "Web GIS Client" as wgc
+wgc ..> fi
+
+component "SO!API" as api
+api ..> fi
+
+note top of api
+WMS
+DataService
+SearchService via View
+WFS
+end note
+
+component "QGIS Desktop" as qgis
+qgis ..> ri
+
+component "Datenabgabe" as out
+out .up.> fi
+
+component "GRETL" as dag
+dag .up.> mdb
+
+note bottom of dag
+Wahrscheinlich via neue Services.
+Erarbeitung in Projekt "Know your GRETL"
+end note
+
+component "Geocat (Bund)" as cat
+cat .up.> mdb
+
+note bottom of cat
+Via GRETL-Job und
+xtf-Transferdatei
+end note
+@enduml
