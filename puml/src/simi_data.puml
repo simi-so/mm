@@ -4,7 +4,18 @@ package Data {
 
   class "SingleLayer (SL)" as sl << package Map >>
 
-  abstract class "DataSet (DS)" as ds
+  abstract class "DataSet (DS)" as ds {
+    version* : enum
+    void unique(ref<sl>, version)
+  }
+
+  note left
+    Gueltige Werte
+    der enum "version":
+    - current
+    - previous
+    - next
+  end note
   
   class "PostgresDS" as pds {
     tablename* : string
@@ -40,7 +51,7 @@ package Data {
   ds <|-- pds
   pds <|-- vds
 
-  sl "*" -- "1..*" ds : [version: current, next]
+  sl "1" *-- "1..3" ds
   
   pds "1..*" --* "1" pgsrc
   pds "1" *-- "0..*" attr

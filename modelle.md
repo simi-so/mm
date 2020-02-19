@@ -56,6 +56,16 @@ Stellt die Klassen des Datenkonfigurationsteils dar
 * Tabellarische Daten aus Postgres/PostGIS mit und ohne Geometrie
 * Rasterdaten aus einem File / einem Katalog
 
+### DataSet
+
+Pro SingleLayer können maximal drei DataSet-Objekte mit jeweils anderer Versions-Enum vorkommen:
+* Enum "current": Das aktuell "scharfe" DataSet für den Singlelayer. Beispiel für identifier: ch.so.agi.gemeindegrenze
+* Enum "next": Das kommende DataSet für den Singlelayer. Beispiel für identifier: ch.so.agi.gemeindegrenze.next
+* Enum "previous": Das vorherige DataSet für den Singlelayer. Beispiel für identifier: ch.so.agi.gemeindegrenze.previous
+
+Mittels Unique-Key wird sichergestellt, dass für einen SingleLayer eine DataSet in beispielsweise der Version "next"
+maximal einmal vorkommt.
+
 ## Fragen - Todos
 
 * Wie die meist zutreffende Komposition Layergruppe - DS abbilden? Bei Komposition können viele Informationen von "Mammi" vererbt werden, ohne dass diese nochmals erfasst werden müssen.
