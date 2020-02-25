@@ -31,7 +31,6 @@ package Map {
   class "SingleLayer (SL)" as sl {
     owner* : reference
     dataPublished* : bool
-    remark : string
   }
   
   class "PropertiesInList (PIL)" as pil << (H, grey) Association Class >> {

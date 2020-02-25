@@ -1,0 +1,56 @@
+@startuml
+
+abstract class "DataProduct (DP)" as dp {
+    identifier* : string
+    inWms* : bool
+    inWGC* : bool
+    title: string
+    remarks: string
+}
+
+abstract class "ProductSet (PS)" as ps
+class "LayerGroup (LG)" as lg
+
+class "Map (MAP)" as map {
+    foreground* : bool
+}
+
+class "DataSetList (DSL)" as dsl {
+    name* : string
+    remarks : string
+}
+
+abstract class "SingleActor (SA)" as sa
+
+class "FacadeLayer (FL)" as fl
+
+class "PostgresDS (PDS)" as pds {
+    tablename* : string
+    inDataServices* : bool
+    def_transparency* : int
+    qml_content* : string
+}
+
+class "PropertiesInList (PIL)" as pil << (H, grey) Association Class >> {
+    visibility*: bool
+    rank*: int
+    transparency: int
+}
+
+dp <|-- ps
+ps <|-- lg
+ps <|-- map
+
+dp <|-- sa
+sa <|-- pds
+sa <|-- fl
+
+ps "0..*" - "1..*" dsl : [ordered]
+
+dsl "0..*" - "1..*" sa : [Class: PIL]
+fl "0..*" - "1..*" pds : [Class: PIL]
+
+' layout help
+sa -[hidden]> pil
+
+@enduml

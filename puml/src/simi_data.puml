@@ -8,6 +8,7 @@ package Data {
 
   abstract class "DataSet (DS)" as ds {
     version* : enum
+    remarks: string
     void unique(ref<sl>, version)
   }
 
