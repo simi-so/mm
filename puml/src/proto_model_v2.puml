@@ -25,7 +25,13 @@ class "PostgresDS (PDS)" as pds {
     qml_content* : string
 }
 
-class "PropertiesInList (PIL)" as pil << (H, grey) Association Class >> {
+class "DatasetListProperties (DLP)" as dlp << (H, grey) Association Class >> {
+    visibility*: bool
+    rank*: int
+    transparency: int
+}
+
+class "SingleActorListProperties (SLP)" as slp << (H, grey) Association Class >> {
     visibility*: bool
     rank*: int
     transparency: int
@@ -39,10 +45,11 @@ sa <|-- fl
 
 ps "0..*" - "1..*" dsl : [ordered]
 
-dsl "0..*" - "1..*" sa : [Class: PIL]
-fl "0..*" - "1..*" pds : [Class: PIL]
+dsl "0..*" - "1..*" sa : [Class: SLP]
+fl "0..*" - "1..*" pds : [Class: DLP]
 
 ' layout help
-sa -[hidden]> pil
+sa -[hidden]> slp
+pds -[hidden]> dlp
 
 @enduml
