@@ -1,20 +1,13 @@
 @startuml
 
 abstract class "DataProduct (DP)" as dp {
-    inWms* : bool
     inWGC* : bool
     title: string
     remarks: string
 }
 
-abstract class "ProductSet (PS)" as ps {
+class "ProductSet (PS)" as ps {
     identifier* : string
-}
-
-class "LayerGroup (LG)" as lg
-
-class "Map (MAP)" as map {
-    foreground* : bool
 }
 
 abstract class "SingleActor (SA)" as sa {
@@ -36,14 +29,12 @@ class "PropertiesInList (PIL)" as pil << (H, grey) Association Class >> {
 }
 
 dp <|-- ps
-ps <|-- lg
-ps <|-- map
 
 dp <|-- sa
 sa <|-- pds
 sa <|-- fl
 
-ps "0..*" - "1..*" sa : [Class: PIL]
+ps "1..*" - "1..*" sa : [Class: PIL]
 fl "0..*" - "1..*" pds : [Class: PIL]
 
 ' layout help

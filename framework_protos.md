@@ -33,7 +33,7 @@ See ![Modelle](modelle.md) concerning the documentation of the origin models (in
 Changes since V1:
 * New entity DataSetList (DSL)
 * New mandatory field "qml_content" on PostgresDS. With "select file from disc" functionality.
-* Moves the identifier field from SA and PS up to DP
+* Moved the identifier field from SA and PS up to DP
 
 ![Model V2](puml_output/proto_model_v2.png)
 

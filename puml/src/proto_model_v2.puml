@@ -2,18 +2,12 @@
 
 abstract class "DataProduct (DP)" as dp {
     identifier* : string
-    inWms* : bool
     inWGC* : bool
     title: string
     remarks: string
 }
 
-abstract class "ProductSet (PS)" as ps
-class "LayerGroup (LG)" as lg
-
-class "Map (MAP)" as map {
-    foreground* : bool
-}
+class "ProductSet (PS)" as ps
 
 class "DataSetList (DSL)" as dsl {
     name* : string
@@ -38,8 +32,6 @@ class "PropertiesInList (PIL)" as pil << (H, grey) Association Class >> {
 }
 
 dp <|-- ps
-ps <|-- lg
-ps <|-- map
 
 dp <|-- sa
 sa <|-- pds
