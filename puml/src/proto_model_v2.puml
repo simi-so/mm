@@ -44,13 +44,13 @@ class "SingleActorListProperties (SLP)" as slp << (H, grey) Association Class >>
 }
 
 dp <|-- ps
+ps <|-- lg
+ps <|-- map
+  
 dp <|-- sa
 
 sa <|-- pds
 sa <|-- fl
-
-ps <|-- lg
-ps <|-- map
 
 ps "0..*" - "1..*" toc : [ordered]
 
