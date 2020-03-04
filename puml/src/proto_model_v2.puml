@@ -7,9 +7,15 @@ abstract class "DataProduct (DP)" as dp {
     remarks: string
 }
 
-class "ProductSet (PS)" as ps
+abstract class "ProductSet (PS)" as ps
 
-class "DataSetList (DSL)" as dsl {
+class "LayerGroup (LG)" as lg
+
+class "Map (MAP)" as map {
+  foreground* : bool
+}
+
+class "TableOfContents (TOC)" as toc {
     name* : string
     remarks : string
 }
@@ -27,25 +33,28 @@ class "PostgresDS (PDS)" as pds {
 
 class "DatasetListProperties (DLP)" as dlp << (H, grey) Association Class >> {
     visibility*: bool
-    rank*: int
+    sort*: int
     transparency: int
 }
 
 class "SingleActorListProperties (SLP)" as slp << (H, grey) Association Class >> {
     visibility*: bool
-    rank*: int
+    sort*: int
     transparency: int
 }
 
 dp <|-- ps
-
 dp <|-- sa
+
 sa <|-- pds
 sa <|-- fl
 
-ps "0..*" - "1..*" dsl : [ordered]
+ps <|-- lg
+ps <|-- map
 
-dsl "0..*" - "1..*" sa : [Class: SLP]
+ps "0..*" - "1..*" toc : [ordered]
+
+toc "0..*" - "1..*" sa : [Class: SLP]
 fl "0..*" - "1..*" pds : [Class: DLP]
 
 ' layout help

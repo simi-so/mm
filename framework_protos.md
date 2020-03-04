@@ -37,6 +37,36 @@ Changes since V1:
 
 ![Model V2](puml_output/proto_model_v2.png)
 
+Cuba: Script to move identifier from SingleActor to DataProduct makes two steps:
+* Rename the column in update script --> Data is still available
+* Drop the column in specific drop script at the end
 
- 
+**update script:**
+    **alter table SIMI_SINGLE_ACTOR rename column identifier to identifier__u80113 ;**
+    alter table SIMI_SINGLE_ACTOR alter column identifier__u80113 drop not null ;
+    alter table SIMI_SINGLE_ACTOR add column DELETED_BY varchar(50) ;
+    alter table SIMI_SINGLE_ACTOR add column TITLE varchar(255) ;
+    alter table SIMI_SINGLE_ACTOR add column REMARKS text ;
+    alter table SIMI_SINGLE_ACTOR add column IN_WGC boolean ^
+    update SIMI_SINGLE_ACTOR set IN_WGC = false where IN_WGC is null ;
+    alter table SIMI_SINGLE_ACTOR alter column IN_WGC set not null ;
+    alter table SIMI_SINGLE_ACTOR add column UPDATE_TS timestamp ;
+    alter table SIMI_SINGLE_ACTOR add column DTYPE varchar(31) ;
+    alter table SIMI_SINGLE_ACTOR add column DELETE_TS timestamp ;
+    alter table SIMI_SINGLE_ACTOR add column UPDATED_BY varchar(50) ;
+    alter table SIMI_SINGLE_ACTOR add column CREATED_BY varchar(50) ;
+    alter table SIMI_SINGLE_ACTOR add column CREATE_TS timestamp ;
+    alter table SIMI_SINGLE_ACTOR add column VERSION integer ^
+    update SIMI_SINGLE_ACTOR set VERSION = 0 where VERSION is null ;
+    alter table SIMI_SINGLE_ACTOR alter column VERSION set not null ;
+    -- alter table SIMI_SINGLE_ACTOR add column IDENTIFIER varchar(255) ^
+    -- update SIMI_SINGLE_ACTOR set IDENTIFIER = <default_value> ;
+    -- alter table SIMI_SINGLE_ACTOR alter column identifier set not null ;
+    alter table SIMI_SINGLE_ACTOR add column IDENTIFIER varchar(255) ;
 
+**drop script:**
+    **alter table SIMI_SINGLE_ACTOR drop column IDENTIFIER__U80113 cascade ;**
+
+Remarks:
+* As DataProduct is rewritten to a mapped superclass, dropping the identifier and recreating is not necessary - this would need to be corrected manually.
+* Data migration code would need to be inserted manually between the update and delete scripts

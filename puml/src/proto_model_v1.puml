@@ -24,13 +24,13 @@ class "PostgresDS (PDS)" as pds {
 
 class "DatasetListProperties (DLP)" as dlp << (H, grey) Association Class >> {
     visibility*: bool
-    rank*: int
+    sort*: int
     transparency: int
 }
 
 class "SingleActorListProperties (SLP)" as slp << (H, grey) Association Class >> {
     visibility*: bool
-    rank*: int
+    sort*: int
     transparency: int
 }
 
