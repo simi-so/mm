@@ -3,7 +3,6 @@
 package Data {
 
   class "SingleLayer (SL)" as sl << package Map >> {
-    void check_has(ref<ds[current]>)
   }
 
   abstract class "DataSet (DS)" as ds {
@@ -22,16 +21,21 @@ package Data {
   
   class "PostgresDS" as pds {
     tablename* : string
+    cat_sync_stamp* : datetime
     inDataServices* : bool
     idField : string
     whereClause : string
   }
   
-  class "Attributes" as attr {
+  class "Attribute" as attr {
     name* : string
+    sort* : int
+    cat_synced* : bool
     alias : string
     description : string
     wgc_format : string
+    json_displayprops: string
+    jinja_template: string
   }
   
   class "VectorDS" as vds {

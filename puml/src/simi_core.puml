@@ -12,8 +12,9 @@ package Map {
       inWGC* : bool
   }
   
-  abstract class "ProductSet (PS)" as ps
-  class "LayerGroup (LG)" as lg
+  abstract class "ProductList (PL)" as pl
+
+  class "LayerList (LG)" as ll
 
   class "Map (MAP)" as map {
     foreground* : bool
@@ -45,15 +46,15 @@ package Map {
       transparency: int
   }
   
-  dp <|-- ps
-  ps <|-- lg
-  ps <|-- map
+  dp <|-- pl
+  pl <|-- ll
+  pl <|-- map
   
   dp <|-- sa
   sa <|-- sl
   sa <|-- fl
   
-  ps "0..*" - "1..*" toc : [ordered]
+  pl "0..*" - "1..*" toc : [ordered]
   
   toc "0..*" - "1..*" sa : [Class: SAL]  
   fl "0..*" - "1..*" sl : [Class: SLL]

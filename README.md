@@ -7,4 +7,4 @@
 Abläufe bezüglich der Pflege der Metainformationen ![Link](ablaeufe.md)
 
 ## Metamodell
-UML-Klassendiagramme des Metamodelles ![Link](modelle.md)
+UML-Klassendiagramme des Metamodelles ![Link](modeldoc/core.md)

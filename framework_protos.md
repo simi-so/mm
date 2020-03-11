@@ -23,7 +23,7 @@ Additionally, document valid ways to integrate "Non-CRUD" functionalities into t
 ## Data model
 
 The used data model is a stripped and compressed subset of the origin models "map" and "data". 
-See ![Modelle](modelle.md) concerning the documentation of the origin models (in german).
+See ![Modelle](modeldoc/core.md) concerning the documentation of the origin models (in german).
 
 ### Model V1
 ![Model V1](puml_output/proto_model_v1.png)
