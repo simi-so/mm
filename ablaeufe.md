@@ -16,14 +16,16 @@
 * AGI gibt die Publikation auf allen "Kanälen" frei. Wenn nicht anders definiert werden die Daten sowohl für den 
 Bezug in Rohdatenform (Datenabgabe, Dataservice, WFS) wie auch für den Bezug in Kartenform (WMS, WGC, QGIS Desktop) freigegeben.
 
-# Abläufe Datendownload
-
-Bemerkung: Aufgrund der "Bestückung" von geocat und oder der Integration in opendata.swiss stehen dem
-Kunden "automatisch" die Such / Katalogfunktionen dieser beiden Applikationen ebenfalls zur Verfügung.
+# Ablauf Datendownload
 
 ![Ablauf Datendownload](puml_output/ablauf_download.png)
 
-* Spezialbestellung liegt vor falls das INTERLIS-Erfassungsmodell erwünscht ist 
+* Spezialbestellung liegt vor, falls das INTERLIS-Erfassungsmodell erwünscht ist, 
 oder zugriffsgeschüetzte Daten enthalten sind.
-* In der Downloadüebersicht sind auch die Informationen zum "Bezug" via Diensten
+* In der Downloadübersicht sind auch die Informationen zum "Bezug" via Diensten
 enthalten (WMS, GeoAPI, WFS).
+
+## Alternativen für den Kunden
+
+Aufgrund der "Bestückung" von geocat und oder der Integration in opendata.swiss stehen dem
+Kunden "automatisch" die Such / Katalogfunktionen dieser beiden Applikationen ebenfalls zur Verfügung.

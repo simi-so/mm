@@ -6,20 +6,11 @@ und Auschnitt definieren
 (Im Web GIS Client);
 :Downloaduebersicht
 anzeigen (Mini-Webapp);
-    floating note left
-    	Spezialbestellung falls:
-        - INTERLIS-Erfassungsmodell erwuenscht
-        - Zugriffsgeschuetzte Daten enthalten
-        
-        In der Downloaduebersicht sind auch die
-        Informationen zum "Bezug" via Diensten
-        enthalten (WMS, GeoAPI, WFS).
-    end note
 if (Spezialbestellung?) then (nein)
 	:Selbstbedienung;
 else (ja)
 	:Web-Formular 
-    ausfüllen;
+    ausfuellen;
     |AGI|
     :Bestellung abwickeln;
     :Webtransfer an Kunde;
