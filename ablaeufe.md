@@ -20,7 +20,7 @@ Bezug in Rohdatenform (Datenabgabe, Dataservice, WFS) wie auch für den Bezug in
 
 ![Ablauf Datendownload](puml_output/ablauf_download.png)
 
-* Spezialbestellung liegt vor, falls das INTERLIS-Erfassungsmodell erwünscht ist, 
+* Spezialbestellung liegt vor, falls xtf Transferdaten des Erfassungsmodelles erwünscht sind, 
 oder zugriffsgeschüetzte Daten enthalten sind.
 * In der Downloadübersicht sind auch die Informationen zum "Bezug" via Diensten
 enthalten (WMS, GeoAPI, WFS).
