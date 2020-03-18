@@ -2,7 +2,7 @@
 
 package Data {
 
-  class "SingleLayer (SL)" as sl << package Map >> {
+  class "SingleLayer (SL)" as sl << package Core >> {
   }
 
   abstract class "DataSet (DS)" as ds {

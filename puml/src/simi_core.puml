@@ -1,6 +1,6 @@
 @startuml
 
-package Map {
+package Core {
   abstract class "DataProduct (DP)" as dp {
       identifier* : string
       title: string

@@ -1,0 +1,12 @@
+@startuml
+[Core] as core
+[Data] as data
+[Flow] as flow
+[IAM] as iam
+[Contact] as con
+
+data --> core
+flow --> core
+iam --> core
+con --> core
+@enduml
