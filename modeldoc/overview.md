@@ -11,7 +11,7 @@ Access Management (Benutzer, Gruppen, Rollen, ...). [Under construction]
 * **Contact** Teilmodell zur Definition der Kontaktinformationen 
 bezüglich der genutzten Daten. [Under construction] 
 * **Flow** Modelliert die Informationsflüsse zwecks Übersicht der notwendigen Anpassungen bei
-Schemaänderungen etc. [[Link]](dependency.md)
+Schemaänderungen etc. [[Link]](flow.md)
 
 # Teilmodell Core
 
@@ -36,17 +36,17 @@ entsprechend mehrere VectorDS-Objekte erfasst werden.
 
 Als neue Klasse hinzugefügt, um die Verschachtelung der DataProducts aufzulösen
 
-### Productlist
+### ProductList ersetzt ~~ProductSet~~
 
 Klassenname ProductList ersetzt ProductSet, da treffender. Grund: In der bisherigen Praxis sind die Kinder immer sortiert.
 
-### Layerlist
+### LayerList ersetzt ~~Layergroup~~
 
-Klassenname Layerlist ersetzt Layergroup, da treffender. Grund: In der bisherigen Praxis sind die Kinder immer sortiert.
+Klassenname LayerList ersetzt Layergroup, da treffender. Grund: In der bisherigen Praxis sind die Kinder immer sortiert.
 
 ## Fragen - Todos
 
-* Wie die meist zutreffende Komposition Layergruppe - DS abbilden? Bei Komposition können viele Informationen von 
+* Wie die meist zutreffende Komposition LayerList - SingleLayer abbilden? Bei Komposition können viele Informationen von 
 "Mammi" vererbt werden, ohne dass diese nochmals erfasst werden müssen.
 
 # Teilmodell Data
@@ -88,6 +88,8 @@ Im GUI des SingleLayer steht entsprechende Funktionalität zur Verfügung:
     * Rename "Previous" auf "Current"
     
 # Teilmodell Flow
+
+[Link auf Teilmodell "Flow"](flow.md)
 
 ## Anpassungen gegenüber dem Metamodell
 

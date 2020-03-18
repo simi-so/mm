@@ -16,6 +16,8 @@ Beispiele:
 * WMS-Ebene eines Nachbarkantones welcher in eine vorkonfigurierte Karte des Kantons Solothurn aufgenommen wird.
 * WMS-Ebene der Fachapplikation Altlast4Web welche in eine thematische Karte des SO!Map-Clients eingebunden werden soll.
 
+**Unique-Bedingung:** Feld "identifier" ist GDI-weit eindeutig
+
 ### FacadeLayer (FL)
 Aggregationslayer, welcher von den Applikationen als ein Layer angesprochen wird.
 
@@ -24,9 +26,13 @@ individuell auf die im Facadelayer enthaltenen Unterlayer. Die enthaltenen Unter
 
 Beispiel: Plan für das Grundbuch
 
+Im GUI steht eine Funktion zur Verfügung, um automatisiert eineb FacadeLayer in eine LayerList umzuwandeln.
+
 ### LayerList (LL)
 
 Sortierte Liste von Einzellayern (=SingleActor), welche im Webclient „explodiert“ dargestellt wird.
+
+Im GUI steht eine Funktion zur Verfügung, um automatisiert eine LayerList in einen FacadeLayer umzuwandeln. 
 
 ### SingleActor (SA)
 
@@ -62,6 +68,8 @@ Beispiele:
 
 Ist ein "Konfigurations-Baustein", welcher via Layergruppe und Map mehrfach genutzt werden kann. Der Inhalt einer DSL
 muss einen engen thematischen Kontext haben (Im Gegensatz zur Map).
+
+**Unique-Bedingung:** Feld "name" ist eindeutig
 
 ## Beispielkonfigurationen und resultierende Einträge in PL - TOC - SA:
 

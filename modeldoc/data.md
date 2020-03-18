@@ -39,11 +39,11 @@ Bei Rasterdaten entspricht er einem Rasterlayer (Es werden keine nicht georefere
 ### Versionierung
 
 Pro SingleLayer können maximal drei DataSet-Objekte mit jeweils anderer Versions-Enum vorkommen:
-* Enum "current": Das aktuell "scharfe" DataSet für den Singlelayer. Beispiel für identifier: ch.so.agi.gemeindegrenze
-* Enum "next": Das kommende DataSet für den Singlelayer. Beispiel für identifier: ch.so.agi.gemeindegrenze.next
-* Enum "previous": Das vorherige DataSet für den Singlelayer. Beispiel für identifier: ch.so.agi.gemeindegrenze.previous
+* Enum "current": Das aktuell "scharfe" DataSet für den Singlelayer. 
+* Enum "next": Das kommende DataSet für den Singlelayer.
+* Enum "previous": Das vorherige DataSet für den Singlelayer.
 
-Mittels Unique-Key wird sichergestellt, dass für einen SingleLayer eine DataSet in beispielsweise der Version "next"
+**Unique-Bedingung:** Mittels Unique-Key wird sichergestellt, dass für einen SingleLayer eine DataSet in beispielsweise der Version "next"
 maximal einmal vorkommt.
 
 ## PostgresDS
