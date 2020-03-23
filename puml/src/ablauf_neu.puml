@@ -6,11 +6,6 @@ start
 
 :Modell in DB anlegen;
 
-|Fachamt|
-:Darstellung (QML)
-erstellen;
-
-|AGI|
 :Technische Metain-
 formationen erfassen;
 
@@ -19,12 +14,13 @@ note left
 - Darstellung DataSet
 - Gruppierungen
 - Identifier der DataProducts
+- Zugriffssteuerung
+- ...
 end note
 
 |Fachamt|
-:Technische
-Metainformationen
-gegenpruefen;
+:Darstellung (QML)
+erstellen;
 
 :Dokumentieren;
 
@@ -32,8 +28,19 @@ note right
 - Titel
 - Beschreibung
 - Stichworte / Synonyme
+- Kontaktinformationen
 - Infos zu Erhebung / Nachfuerung
-- Attributbeschreigung
+- Attributbeschreibung
+- ...
+end note
+
+:Gesamtkonfiguration
+pruefen;
+
+note right
+Umfasst:
+- Druecken des Magicbutton
+- Pruefen der Konfig via WGC, SO-Locator, ...
 end note
 
 |AGI|
