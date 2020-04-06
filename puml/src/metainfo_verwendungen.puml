@@ -1,7 +1,7 @@
 @startuml
 database " " {
 	component "Meta-DB" as mdb
-    () "**json view**" as fi
+    () "**json file**" as fi
     () "**dataprod srv**" as ri
     fi - mdb
     mdb - ri
@@ -23,7 +23,7 @@ end note
 component "QGIS Desktop" as qgis
 qgis ..> ri
 
-component "Datenabgabe" as out
+component "Datenbereitstellung" as out
 out .up.> fi
 
 component "GRETL" as dag
