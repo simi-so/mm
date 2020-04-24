@@ -109,4 +109,18 @@ Abhängigkeitsaspekte:
 wie auch zur Zugriffsverwaltung verwendet.
 * **Fachsysteme**, welche meist via Dataservice Informationen aus der GDI beziehen (und schreiben) 
 
+# Modellierungsfragen
+
+|Betrifft|Frage|Wer|Antwort|
+|---|---|---|---|
+|data.PostgresSchema|Wann sind die verwendeten Parameter der Schemaerstellung mittels ili2pg Teil des Model-Repos?|Stefan|?|
+|data.PostgresDB|Verwendung der Service-Definition verstehen. Host und Port als Attribute ok?|Michael|?|
+|data und core|Transparenz-Regeln verstehen.|Michael|?|
+|data|Externe WMS-Ebene einbinden|Oliver|?|
+|data|Wie die Raster in die GDI einbinden? Es gibt zu viele Möglichkeiten...|Oliver|?|
+
+
+
+
+
 

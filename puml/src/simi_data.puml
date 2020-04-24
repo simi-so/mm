@@ -1,5 +1,4 @@
 @startuml
-
 package Data {
 
   class "SingleLayer (SL)" as sl << package Core >> {
@@ -18,7 +17,7 @@ package Data {
     - previous
     - next
   end note
-  
+
   class "PostgresDS" as pds {
     tablename* : string
     cat_sync_stamp* : datetime
@@ -26,7 +25,13 @@ package Data {
     idField : string
     whereClause : string
   }
-  
+
+  class "PostgresDB" as pdb {
+    host* : string
+    port* : int
+    dbName* : string
+  }
+
   class "Attribute" as attr {
     name* : string
     sort* : int
@@ -37,31 +42,33 @@ package Data {
     json_displayprops: string
     jinja_template: string
   }
-  
+
   class "VectorDS" as vds {
     def_transparency* : int
     qml_content* : string
     geom_column : string
   }
-  
+
   class "RasterDS" as rds {
     def_transparency* : int
     filepath* : string
   }
-  
-  class "PostgresSource" as pgsrc {
-    database* : string
-    schema* : string
+
+  class "PostgresSchema" as pgs {
+    schemaName* : string
+    modelUrl : url
+    modelName : string
   }
-  
+
   ds <|-- rds
   ds <|-- pds
   pds <|-- vds
 
   sl "1" *-- "1..3" ds
-  
-  pds "1..*" --* "1" pgsrc
-  pds "1" *-- "0..*" attr
-}
 
+  pds "1..*" --* "1" pgs
+  pds "1" *-- "0..*" attr
+
+  pgs "1..*" --* "1" pdb
+}
 @enduml

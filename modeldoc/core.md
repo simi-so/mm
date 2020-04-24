@@ -51,10 +51,21 @@ Einzelebene, welche die Daten aus
 * ...
 bezieht.
 
+**Attributbeschreibungen PostgresDS:**
+
+|Name|Typ|Z|Beschreibung|
+|---|---|---|---|
+|currentVersion|Integer|Ja|Versionsidentifizierende Zahl für die current Version.|
+
+Bemerkungen:
+* currentVersion: Steht diese auf beispielsweise 4, werden die folgenden Versions-Suffixe abgeleitet: 
+    * current = *_v4
+    * previous = *_v3
+    * next = *_v5
+
 ### SingleLayerLinkProperties (SLL)
 
 Attributierte Verknüpfungstabelle der m:n Beziehung zwischen FL und SL
-
 
 ### ProductList (PL)
 

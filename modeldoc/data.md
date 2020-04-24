@@ -12,18 +12,24 @@ Umfasst die Eigenschaften eines Attributs einer PostgresDS.
 
 Bemerkungen:
 * Die Namen der Attribute werden mittels Katalogabfrage aus Postgres gelesen.
-* Zwei PostgresDS können auf dasselbe Attribut verweisen. Da dies aber nicht häufig vorkommt, wird auf diese 
+* Zwei PostgresDS können auf dasselbe Attribut verweisen. Da dies aber nicht häufig vorkommt, wird auf eine 
 Normalisierung verzichtet. Der Vorteil des einfachen Modelles überwiegt den Nachteil der punktuellen Doppelerfassung
 von Beispielsweise des Feldes "description". 
 * Der Attributname ist innerhalb eines PostgresDS unique. 
 
-Attributbeschreibungen:
-* cat_synced: Gibt an, ob das Attribut bei der letzten Katalogabfrage in der Datenbank vorhanden war.
-(Zeitpunkt der letzten Synchronisation: PostgresDS.cat_sync_stamp)
-* wgc_format: Formattierungs-String für die Darstellung im Web GIS Client
-* json_displayprops: Definiert Alias, Reihenfolge, Wertformatierung für die Properties eines Json-Feldes. 
-* jinja_template: Template, welches ein Custom-Rendering für das Attribut definiert. $td: Definition auf DS oder Attribut?
-* Von den Felder wgc_format, json_displayprops, jinja_template darf nur eines "not null" sein.
+**Attributbeschreibungen:**
+
+|Name|Typ|Z|Beschreibung|
+|---|---|---|---|
+|catSynced|boolean|j|Gibt an, ob das Attribut bei der letzten Katalogabfrage in der Datenbank vorhanden war.|
+|catSyncStamp|DateTime|j|Gibt an, wann das letzte Mal mit dem Katalog abgeglichen wurde.|
+|wmsFiFormat|String(50)|n|Python Formattierungs-String, welcher die Formatierung des Attributes für WMS GetFeatureInfo steuert.|
+|wgcDisplayProps4Json|Json|n|Definiert Alias, Reihenfolge, Wertformatierung für die Properties eines Json-Feldes.| 
+
+**Regeln:**
+* wmsFiFormat: Darf nur gesetzt sein, wenn PostgresDS.wgcDisplayTemplate leer ist (Anwendung mit Default-Template).
+* wgcDisplayProps4Json: Darf nur gesetzt sein, wenn PostgresDS.wgcDisplayTemplate leer ist,
+ und es sich um ein json-Feld handelt.
 
 ## Dataset
 
@@ -35,6 +41,12 @@ Bei Rasterdaten entspricht er einem Rasterlayer (Es werden keine nicht georefere
  (und geschrieben) werden können. Die sprechenden Namen der Spalten (=Attribute) sind in der Klasse "Attributes" definiert.
 * **VectorDS:** Repräsentiert eine PostGIS-Ebene. Erweitert PostgresDS mit den Darstellungseigenschaften.
 * **RasterDS:** Repräsentiert eine dateibasierte Raster-Ebene. 
+
+**Attributbeschreibungen PostgresDS:**
+
+|Name|Typ|Z|Beschreibung|
+|---|---|---|---|
+|wgcDisplayTemplate|String|Jinja-Template, welches ein Custom-Rendering für das Attribut definiert.|
 
 ### Versionierung
 
@@ -52,8 +64,18 @@ Siehe Dataset
 
 ## PostgresSchema
 
-Enthält die Eigenschaften eines Postgres-Schema. Eingeführt, um der hohen Wichtigkeit des Schema als "Nachführungseinheit"
-Rechnung zu tragen.
+Enthält die Eigenschaften eines Postgres-Schema. 
+
+Eingeführt:
+* Um der hohen Wichtigkeit des Schema als "Nachführungseinheit" Rechnung zu tragen.
+* Den 1:1 Link zu den INTERLIS-Modellen herzustellen
+
+## PostgresDB
+
+Postgres-Datenbank, in welcher das Schema (PostgresSchema) enthalten ist. Universell adressiert mittels
+* Datenbankname
+* Hostname des PG-Clusters
+* Port des PG-Clusters
 
 ## RasterDS
 
