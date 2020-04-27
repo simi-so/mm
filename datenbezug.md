@@ -31,108 +31,58 @@ Modellinhalte angezeigt.
 
 Pro Thema (= pro Modell) werden die verfügbaren Datenstrukturierungen und Formate angezeigt.
 
-Datenstrukturierungen:
 * nutzungsfreundlich (= Publikationsmodell)
-* in Originalmodell (= Erfassungsmodell)
-
-Formate:
-* Vorberechnet
     * INTERLIS2
-    * Geopackage (Nur für die nutzungsfreundliche Datenstrukturierung)
-* "Klick"-Bereitstellung
-    * Shapefile
-    * DxF
+    * Geopackage
+    * Shapefile *
+    * DxF *
+* in Originalmodell (= Erfassungsmodell)
+    * INTERLIS2
+    
+\* Shapefile und DxF stehen nicht vorberechnet zur Verfügung. Sie werden zur Laufzeit vom System bereitgestellt.
     
 ![Downloadliste](res/datenbezug1.jpg)
 
 ### Bereitstellungs-Seite
 
-Shapefile und DxF stehen nicht vorberechnet zum Download bereit und werden erst bei Klick auf den entsprechenden Link erstellt.
+Shapefile und DxF stehen nicht vorberechnet zum Download bereit und werden erst bei Klick auf den 
+entsprechenden Link der Downloadliste erstellt.
 Dem Benutzer wird während der laufenden Bereitstellung eine Seite mit Fortschrittsanzeige dargestellt 1). Anschliessend 
 wird das generierte *.zip zum Download angeboten.
 
 ![Klick-Bereitstellung](res/datenbezug2.jpg)
 
+## "Packetierung" der Daten
 
-## $td Bogen spannen zu Spezialbestellungen, abschliessen
+### Thematische Gruppierung
 
-## Datensatzkategorien und Bezugsmöglichkeiten
+Ein Abgabepacket umfasst die Daten aller Klassen (Tabellen) innerhalb des entsprechenden INTERLIS-Modelles. 
+Der gesamte Modellinhalt ist also die kleinstmögliche Abgabeeinheit, nicht eine einzelne Tabelle.
 
-| |DS frei erhältlich|DS zugriffsgeschützt|DS nur auf Edit|
+### Gebietseinteilung
+
+Meistens ist in der Datei der Datenabgabe (zum Beispiel im Geopackage) der ganze Kanton Solothurn enthalten.
+
+Ausnahmen:
+* Die Nachführung erfolgt Gebietsweise. Bereitstellung einzeln pro Nachführungsgebiet. Dies trifft zu für
+die amtliche Vermessung und Datensätze in der Zuständigkeit der Gemeinden (Nutzungsplanung, ...)
+* Sehr grosse Datensätze, für welche die kantonsweite Bereitstellung zu Dateien einer Grösse über 1-2 Gb führt. 
+Hintergrund: Download soll bei Downloadrate von 40 Mbit/s nicht mehr wie 5 Minuten beanspruchen. 
+
+## Zugriffsschutz und Bezugsmöglichkeiten
+
+Die meisten Daten des Kantons Solothurn sollen weiterhin frei und ohne Auflagen verfügbar sein (OpenData). 
+Gründe, bei welchen ein Datensatz zugriffsgeschützt werden muss:
+* Der Datensatz enthält personenbezogene Daten
+* Eines der folgenden Kriterien trifft zu: [GeoIV Art. 22 Abs. 2](https://www.admin.ch/opc/de/classified-compilation/20071088/index.html#a22)
+
+Die drei Zugangsberechtigungsstufen des GeoIG werden sinngemäss übernommen, und auf alle Geodaten des Kantons angewendet. 
+[Zugangsberechtigungsstufen - GeoIV Art. 21](https://www.admin.ch/opc/de/classified-compilation/20071088/index.html#a21)
+
+| |[A] - DS frei erhältlich|[B] - DS zugriffsgeschützt|[C] - DS nur auf Edit|
 |---|---|---|---|
 |In Meta-DB beschrieben?|Ja|Ja|Ja|
 |In WGC Zusammenstellung enthalten?|Ja|Ja|Nein|
-|In geocat enthalten?|Ja|Ja|Nein|
+|In Downloadliste enthalten?|Ja|Ja|Nein|
 |Download-Link vorhanden?|Ja|Ja - zugriffsgeschützt|Nein|
 |Auf opendata.swiss gelistet?|Ja|Nein|Nein|  
-
-
-
-## Anwendungsfälle
-
-![UC Datenbezug](puml_output/uc_datenbezug.png)
-
-|Anwendungsfall|Beschreibung|
-|---|---|
-|Spezialbestellung manuell exportieren||
-|Spezialbestellung manuell exportieren||
-|Spezialbestellung manuell exportieren||
-|Spezialbestellung manuell exportieren||
-
-### Alternativen für den Kunden
-
-Aufgrund der "Bestückung" von geocat und oder der Integration in opendata.swiss stehen dem
-Kunden "automatisch" die Such / Katalogfunktionen dieser beiden Applikationen ebenfalls zur Verfügung.
-
-## Ablauf "Datenbezug zusammenstellen"
-
-![Ablauf Datenbezug](puml_output/ablauf_datenbezug.png)
-
-Spezialbestellungen:
-* Zugriffsgeschützte (falls Anzahlmässig wenige)
-* Datenherr will wissen, wozu die Daten verwendet werden 
-
-In der Downloadübersicht sind auch die Informationen zum "Bezug" via Diensten
-enthalten (WMS, GeoAPI, WFS).
-
-## Anforderungen
-
-|ID|Muss|Stichwort|Beschreibung|
-|---|---|---|---|
-| |Ja|Protokolle|Die Daten müssen via HTTP und FTP bereitgestellt werden|
-| |Ja|Packetierung|Das Publikationmodell ist der kleinste thematische Umfang eines Downloads.<br>Formate, welche dies nicht leisten können, werden als zip ausgeliefert (Bsp. dxf)|
-| |Ja|Formate|Angeboten werden Geopackage, INTERLIS2 für Vektordaten und GeoTif für Rasterdaten.<br>Für die Vermessungsdaten zusätzlich "dxf Geobau".|
-| |Nein|Formate|Angeboten werden zusätzlich dxf und shapefile|
-| |Ja|Ausdehnung|Die Ausdehnung des Angebotes richtet sich einzig nach der Nachführung und/oder der Datenmenge des entsprechenden Themas (Modelles).|
-| |Ja|Benutzer-Oberflächen|Der Kunde bedient sich selbst. Ihm stehen eine kartenzentrische und eine textorientierte Benutzer-Oberfläche zur Verfügung. In der textorientierten Oberfläche sucht er sich "google-like" die Themen zusammen.|
-| |Ja|Datenausschnitt|Es stehen keine kundendefinierten Ausschnitte zur Verfügung. Der Datenumfang der Downloads ist vordefiniert und statisch.|
-| |Ja|Änderungsart|Der Datenbezugsdienst gibt Auskunft über die Art der Aktualisierung (manuell, periodisch), bei periodisch über das Aktualisierungs-Intervall (wöchentlich, ...) den Zeitpunkt der letzten Aktualisierung  
-
-## Todo
-* Anhand der heutigen Meta-DB und der Bestellungen das Mengengerüst der Spezialbestellungen aufgrund Zugriffsschutz verstehen.
-* Anforderungen verstehen, aus welchem der heute etablierte Freigabeprozess folgt.
-* Raster / Lidardaten verstehen
-* Implementierung für die Zugriffsgeschützten vertiefen. Idee "Modellerweiterung" klemmt wegen den Datendiensten.
-    * Dienste ausklammern?
-    * MetaDb weiss neu, welches Modell welchen Klassenumfang hat. MetaDb weiss schon jetzt, welche Attribute einer Klasse
-    freigeschaltet sind. Damit kann ermittelt werden, ob ein Modell zugriffsgeschützte Informationen umfasst.
-        * Folglich: Zugriffsgeschütztes Modell ist Spezialbestellung? --> Mengengerüst abschätzen! 
-* Ueberzeugen, dass kartenzentrisch ausreicht. Wer will Geodaten bestellen, kann aber nicht mit Karten...?
-* In der WGC-Zusammenstellung wird ein geschützter DS gar nicht gefunden, wenn man sich nicht vorgängig im WGC angemeldet hat.
-
-Ergänzen:
-* Gründe für die Spezialbestellungen.
-    * Gründe mit Delegation an AGI
-    * Gründe ohne Delegation an AGI --> GIS-Koordinator muss es machen.
-* Spezialbestellung --> GIS-Koordinator manuell in QGIS.
-* Matrix bezüglich Datenbereitstellungsart und Schutzbedarf des Datensatzes.
-
-
-Besprochenes einarbeiten:
-* Vorberechnete Bereitstellung als xtf (Edit und Prod) und als Geopackage (nur Prod). 
-* On-Demand Konvertierung in Shapefile und DXF 
-* Vermessung wird zusätzlich auch als DXF Geobau bereitgestellt (Vorberechnet)
-* Wichtig ist ein GUI, in welchem mittels guter Suche das Angebot ausschliesslich des Kanton Solothurn durchsucht werden kann.
-    * Geocat leistet dies heute schon (fast), mit einer guten Suche, eingeschränkt auf den Kanton XY
-
-    
