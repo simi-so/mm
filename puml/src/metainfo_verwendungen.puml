@@ -30,7 +30,7 @@ component "GRETL" as dag
 dag .up.> mdb
 
 note bottom of dag
-Wahrscheinlich via neue Services.
+Wahrscheinlich via neü Services.
 Erarbeitung in Projekt "Know your GRETL"
 end note
 

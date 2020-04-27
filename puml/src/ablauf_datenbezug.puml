@@ -4,13 +4,13 @@ start
 :Ebenen zusammenstellen
 und Auschnitt definieren
 (Im Web GIS Client);
-:Downloaduebersicht
+:Downloadübersicht
 anzeigen (Mini-Webapp);
 if (Spezialbestellung?) then (nein)
 	:Selbstbedienung;
 else (ja)
 	:Web-Formular 
-    ausfuellen;
+    ausfüllen;
     |AGI|
     :Bestellung abwickeln;
     :Webtransfer an Kunde;

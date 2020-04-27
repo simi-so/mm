@@ -1,7 +1,7 @@
 @startuml
 left to right direction
 
-:Planungs- /\nGeo-Buero: as buero
+:Planungs- /\nGeo-Büro: as büro
 :Datenintegrator: as int
 :SO-Datenspezialist: as data
 :GIS-Koord.\n/ AGI: as exporter
@@ -9,14 +9,14 @@ left to right direction
 (Datenbezug\nzusammenstellen) as bundle
 (Daten downloaden) as load
 (Als XTF downloaden) as xtf
-(Manuell exportieren) as manuell
+(Manüll exportieren) as manüll
 
 load <|-- xtf
 
-buero --> bundle
-buero --> load
+büro --> bundle
+büro --> load
 int --> load
 data --> xtf
 
-exporter --> manuell
+exporter --> manüll
 @enduml

@@ -14,11 +14,11 @@ note left
 - Darstellung DataSet
 - Gruppierungen
 - Identifier der DataProducts
-- Zugriffssteuerung
+- Zugriffssteürung
 - ...
 end note
 
-|Fachamt|
+|GIS-Koordinator|
 :Darstellung (QML)
 erstellen;
 
@@ -29,23 +29,23 @@ note right
 - Beschreibung
 - Stichworte / Synonyme
 - Kontaktinformationen
-- Infos zu Erhebung / Nachfuerung
+- Infos zu Erhebung / Nachfürung
 - Attributbeschreibung
 - ...
 end note
 
 :Gesamtkonfiguration
-pruefen;
+prüfen;
 
 note right
 Umfasst:
-- Druecken des Magicbutton
-- Pruefen der Konfig via WGC, SO-Locator, ...
+- Drücken des Magicbutton
+- Prüfen der Konfig via WGC, SO-Locator, ...
 end note
 
 |AGI|
 :Dokumentation
-gegenpruefen;
+gegenprüfen;
 
 :Publikationen
 freigeben;
@@ -54,7 +54,7 @@ note left
 Freigabe umfasst:
 - Web GIS Client
 - Datenabgabe (via Dienste und Dateien)
-- Berechtigungen fuer DB-Direktzugriff
+- Berechtigungen für DB-Direktzugriff
 end note
 
 end

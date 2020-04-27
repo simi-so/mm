@@ -11,7 +11,7 @@ package Data {
   }
 
   note left
-    Gueltige Werte
+    Gültige Werte
     der enum "version":
     - current
     - previous

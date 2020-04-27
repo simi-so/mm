@@ -2,6 +2,8 @@
 
 # Erstellt von allen *.puml Diagrammdefinitionen in ../diagrams die SVG-Grafiken in ../doc/dia
 
+export LANG=de_CH.UTF-8
+
 rm puml_output/*
 
 FILES=puml/src/*
@@ -15,3 +17,7 @@ do
 
   cat $f | docker run --rm -i puml_burner > $out
 done
+
+git add puml_output/*
+git commit -m 'Skript: PUML-Diagramme regeneriert und beigefügt'
+git push
