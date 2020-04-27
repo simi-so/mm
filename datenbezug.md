@@ -5,18 +5,18 @@
 Der Datenbezug wird von Kunden mit unterschiedlich gelagerten Zielen und beruflichem Hintergrund genutzt. Folgend
 werden die Benutzergruppen beschrieben, für welche der Datenbezug in unterschiedlicher Ausprägung bereitgestellt wird.
 
-|Benutzergruppe|Beschreibung|Bezugskanal
+|Benutzergruppe|Beschreibung|Bezug
 |---|---|---|
 |Geo- / Planungsbüro|GIS ist eher "mittel zum Zweck" als ein alltägliches Arbeitsmittel.|Web GIS Client / Downloadliste. Geopackage oder Shapefile|
 |Architekturbüro|Arbeitet typischerweise in einem CAD. Gängige Austauschformate sind DxF und Shapefile|Web GIS Client / Downloadliste. DxF oder Shapefile|
-|Datenverarbeiter|Verarbeitet Daten typischerweise über mehrere Schritte und automatisiert. Wünscht sich direktesten Datenbezug. Je nach Anwendungsfall auch interessiert an den relational strukturierten Daten im Originalmodell|INTERLIS2 oder Geopackage via HTTP oder FTP|
+|Datenverarbeiter|Verarbeitet Daten typischerweise über mehrere Schritte und automatisiert. Wünscht sich direktesten Datenbezug. Je nach Anwendungsfall auch interessiert an den relational strukturierten Daten im Originalmodell|INTERLIS2 oder Geopackage via HTTP (FTP)|
 
-Sowohl im Kanton wie Kantonsextern sind diese Benutzergruppen vorhanden. Eine Unterscheidung in den Bezug kantonsintern / kantonsextern ist also nicht notwendig.
+Sowohl im Kanton wie kantonsextern sind diese Benutzergruppen vorhanden. Eine Unterscheidung in den Bezug kantonsintern / kantonsextern ist also nicht notwendig.
 
 ## Applikationen für den Datenbezug
 
-Für den Datenbezug kommen mehrere vom AGI bereitgestellte respektive beim Benutzer vorhandene Applikationen zum Einsatz, 
-um den Anforderungen der Benutzergruppen gerecht zu werden.
+Für den Datenbezug kommen mehrere, vom AGI bereitgestellte, respektive beim Benutzer vorhandene Applikationen zum Einsatz. 
+Damit wird sichergestellt, dass die verschieden gelagerten Bedürfnisse gut abgedeckt werden.
 
 |Applikation|Verwendung für Datenbezug|
 |---|---|
@@ -32,8 +32,8 @@ Modellinhalte angezeigt.
 Pro Thema (= pro Modell) werden die verfügbaren Datenstrukturierungen und Formate angezeigt.
 
 * nutzungsfreundlich (= Publikationsmodell)
-    * INTERLIS2
     * Geopackage
+    * INTERLIS2
     * Shapefile *
     * DxF *
 * in Originalmodell (= Erfassungsmodell)
@@ -86,3 +86,5 @@ Die drei Zugangsberechtigungsstufen des GeoIG werden sinngemäss übernommen, un
 |In Downloadliste enthalten?|Ja|Ja|Nein|
 |Download-Link vorhanden?|Ja|Ja - zugriffsgeschützt|Nein|
 |Auf opendata.swiss gelistet?|Ja|Nein|Nein|  
+
+Allfällige Ausnahme-Datenabgaben in der Zugriffsberechtigungsstufe C werden durch das Fachamt abgewickelt.
