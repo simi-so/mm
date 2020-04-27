@@ -12,6 +12,7 @@ Access Management (Benutzer, Gruppen, Rollen, ...). [Under construction]
 bezüglich der genutzten Daten. [Under construction] 
 * **Flow** Modelliert die Informationsflüsse zwecks Übersicht der notwendigen Anpassungen bei
 Schemaänderungen etc. [[Link]](flow.md)
+* **CCC** Modelliert die einzelnen CCC-Integrationen (CCC-Client)[[Link]](ccc.md)
 
 # Teilmodell Core
 
