@@ -27,7 +27,12 @@ Damit wird sichergestellt, dass die verschieden gelagerten Bedürfnisse gut abge
 Die Dienste sollen als gleichwertiges Angebot zum "klassischen" Dateibezug wahrgenommen werden. Entsprechend werden in der
 Downloadliste die Bezugsmöglichkeiten via Dienst und via Datei aufgeführt.
 
-**Download-Kanal und -Format:**
+
+## Downloadliste
+
+In der Downloadliste werden für die gewählten Datensätze die Bezugsmöglichkeiten mittels Dienst und Dateibezug aufgelistet.
+
+**Angebotene Kanäle und Formate:**
 * Kanal
     * WMS
     * WFS *
@@ -37,18 +42,18 @@ Downloadliste die Bezugsmöglichkeiten via Dienst und via Datei aufgeführt.
     * Shapefile **
     * DxF **
 
-\* Der WFS ist aufgrund des massiv zu komplexen Datenstandards GML ein unglücklicher Standart. Das AGI wird diesen
+\* Der WFS ist aufgrund des zu komplexen Datenstandards GML ein unglücklicher Standart. Das AGI wird diesen
 deshalb zeitnah mit dem neuen OGC Standard "OGC API - Features" ersetzen. Bei Problemen mit dem WFS bietet das AGI keinen
 Support.
+
 \*\* Shapefile und DxF stehen nicht vorberechnet zur Verfügung. Sie werden zur Laufzeit vom System bereitgestellt. 
 
-## GUI-Mockup der Downloadliste
+### GUI-Mockup
 
 Mittels Suchbegriffen kann die Liste der verfügbaren Downloads eingeschränkt werden ("bauzone" im Mockup). Ohne Einschränkung werden alle zum Download verfügbaren
 Modellinhalte angezeigt.
 
-Pro Thema (= pro Modell) werden die verfügbaren Datenstrukturierungen und Formate angezeigt. Bemerkung: Die Dienstauflistung
-ist im Mockup nicht visualisiert.
+Pro Thema (= pro Modell) werden die verfügbaren Datenstrukturierungen und Formate angezeigt. 
 
 * nutzungsfreundlich (= Publikationsmodell)
     * Geopackage
@@ -60,7 +65,9 @@ ist im Mockup nicht visualisiert.
     
 ![Downloadliste](res/datenbezug1.jpg)
 
-### Bereitstellungs-Seite
+Bemerkung: Die Dienstauflistung ist im Mockup nicht visualisiert.
+
+### Mockup der Bereitstellungs-Seite
 
 Shapefile und DxF stehen nicht vorberechnet zum Download bereit und werden erst bei Klick auf den 
 entsprechenden Link der Downloadliste erstellt.
