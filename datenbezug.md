@@ -21,29 +21,53 @@ Damit wird sichergestellt, dass die verschieden gelagerten Bedürfnisse gut abge
 |Applikation|Verwendung für Datenbezug|
 |---|---|
 |Web GIS Client|Visuelle Sichtung und Bestätigung in der Karte, dass es sich um den gewünschten Datensatz handelt. Zusammenstellung der Themen (Ebenengruppen) des Datenbezugs. Nach Abschluss der Zusammenstellung wird die Downloadliste geöffnet.|
-|Downloadliste|Textuelle Bestätigung, dass es sich um den gewünschten Datensatz handelt. Auswahl des Download-Formates.|
+|Downloadliste|Textuelle Bestätigung, dass es sich um den gewünschten Datensatz handelt. Auswahl von Download-Kanal und -Format.|
 |HTTP- / FTP-Adresse|Stabile Adressen, mit welchen Geopackage / INTERLIS2 direkt bezogen werden kann. Dabei werden die Daten direkt vom Skript des Datenverarbeiters oder von dessen Datei-Manager "angezogen"|
 
-## GUI-Mockup der Downloadliste
+Die Dienste sollen als gleichwertiges Angebot zum "klassischen" Dateibezug wahrgenommen werden. Entsprechend werden in der
+Downloadliste die Bezugsmöglichkeiten via Dienst und via Datei aufgeführt.
+
+
+## Downloadliste
+
+In der Downloadliste werden für die gewählten Datensätze die Bezugsmöglichkeiten mittels Dienst und Dateibezug aufgelistet.
+
+**Angebotene Kanäle und Formate:**
+* Kanal
+    * WMS
+    * WFS *
+* Formate für Datenbezug via HTTP / FTP
+    * Geopackage
+    * INTERLIS2
+    * Shapefile **
+    * DxF **
+
+\* Der WFS ist aufgrund des zu komplexen Datenstandards GML ein unglücklicher Standart. Das AGI wird diesen
+deshalb zeitnah mit dem neuen OGC Standard "OGC API - Features" ersetzen. Bei Problemen mit dem WFS bietet das AGI keinen
+Support.
+
+\*\* Shapefile und DxF stehen nicht vorberechnet zur Verfügung. Sie werden zur Laufzeit vom System bereitgestellt. 
+
+### GUI-Mockup
 
 Mittels Suchbegriffen kann die Liste der verfügbaren Downloads eingeschränkt werden ("bauzone" im Mockup). Ohne Einschränkung werden alle zum Download verfügbaren
 Modellinhalte angezeigt.
 
-Pro Thema (= pro Modell) werden die verfügbaren Datenstrukturierungen und Formate angezeigt.
+Pro Thema (= pro Modell) werden die verfügbaren Datenstrukturierungen und Formate angezeigt. 
 
 * nutzungsfreundlich (= Publikationsmodell)
     * Geopackage
     * INTERLIS2
-    * Shapefile *
-    * DxF *
+    * Shapefile
+    * DxF
 * in Originalmodell (= Erfassungsmodell)
     * INTERLIS2
     
-\* Shapefile und DxF stehen nicht vorberechnet zur Verfügung. Sie werden zur Laufzeit vom System bereitgestellt.
-    
 ![Downloadliste](res/datenbezug1.jpg)
 
-### Bereitstellungs-Seite
+Bemerkung: Die Dienstauflistung ist im Mockup nicht visualisiert.
+
+### Mockup der Bereitstellungs-Seite
 
 Shapefile und DxF stehen nicht vorberechnet zum Download bereit und werden erst bei Klick auf den 
 entsprechenden Link der Downloadliste erstellt.
@@ -64,7 +88,8 @@ Der gesamte Modellinhalt ist also die kleinstmögliche Abgabeeinheit, nicht eine
 Meistens ist in der Datei der Datenabgabe (zum Beispiel im Geopackage) der ganze Kanton Solothurn enthalten.
 
 Ausnahmen:
-* Die Nachführung erfolgt Gebietsweise. Bereitstellung einzeln pro Nachführungsgebiet. Dies trifft zu für
+* Die Nachführung erfolgt Gebietsweise. Bereitstellung erfolgt für das Erhebungsmodell einzeln pro Nachführungsgebiet,
+für das Publikationsmodell wird der ganze Kanton bereitgestellt. Dies trifft zu für
 die amtliche Vermessung und Datensätze in der Zuständigkeit der Gemeinden (Nutzungsplanung, ...)
 * Sehr grosse Datensätze, für welche die kantonsweite Bereitstellung zu Dateien einer Grösse über 1-2 Gb führt. 
 Hintergrund: Download soll bei Downloadrate von 40 Mbit/s nicht mehr wie 5 Minuten beanspruchen. 

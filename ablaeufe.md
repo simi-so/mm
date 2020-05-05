@@ -20,7 +20,7 @@ Bezug in Rohdatenform (Datenabgabe, Dataservice, WFS) wie auch für den Bezug in
 
 **In der Meta-DB.** 
 
-* Die initiale Beschreibung wird aus dem Modell ausgelesen. 
+* Die initiale Beschreibung wird vom System aus dem Modell ausgelesen und in die Meta-DB übertragen. 
 * Weitere Anpassungen / Verfeinerungen werden direkt in der Meta-DB gemacht.
 * Die Anpassung der Beschreibung löst darum **keine** Modelländerung aus.
 * Bei einer aus anderen Beweggründen ausgelösten Modelländerung wird die Attributbeschreibung im Modell wo nötig aktualisiert.
