@@ -24,24 +24,31 @@ Damit wird sichergestellt, dass die verschieden gelagerten Bedürfnisse gut abge
 |Downloadliste|Textuelle Bestätigung, dass es sich um den gewünschten Datensatz handelt. Auswahl von Download-Kanal und -Format.|
 |HTTP- / FTP-Adresse|Stabile Adressen, mit welchen Geopackage / INTERLIS2 direkt bezogen werden kann. Dabei werden die Daten direkt vom Skript des Datenverarbeiters oder von dessen Datei-Manager "angezogen"|
 
+Die Dienste sollen als gleichwertiges Angebot zum "klassischen" Dateibezug wahrgenommen werden. Entsprechend werden in der
+Downloadliste die Bezugsmöglichkeiten via Dienst und via Datei aufgeführt.
+
 **Download-Kanal und -Format:**
 * Kanal
     * WMS
-    * WFS
-* FormatE für Datenbezug via HTTP / FTP
+    * WFS *
+* Formate für Datenbezug via HTTP / FTP
     * Geopackage
     * INTERLIS2
-    * Shapefile *
-    * DxF *
+    * Shapefile **
+    * DxF **
 
-\* Shapefile und DxF stehen nicht vorberechnet zur Verfügung. Sie werden zur Laufzeit vom System bereitgestellt.    
+\* Der WFS ist aufgrund des massiv zu komplexen Datenstandards GML ein unglücklicher Standart. Das AGI wird diesen
+deshalb zeitnah mit dem neuen OGC Standard "OGC API - Features" ersetzen. Bei Problemen mit dem WFS bietet das AGI keinen
+Support.
+\*\* Shapefile und DxF stehen nicht vorberechnet zur Verfügung. Sie werden zur Laufzeit vom System bereitgestellt. 
 
 ## GUI-Mockup der Downloadliste
 
 Mittels Suchbegriffen kann die Liste der verfügbaren Downloads eingeschränkt werden ("bauzone" im Mockup). Ohne Einschränkung werden alle zum Download verfügbaren
 Modellinhalte angezeigt.
 
-Pro Thema (= pro Modell) werden die verfügbaren Datenstrukturierungen und Formate angezeigt.
+Pro Thema (= pro Modell) werden die verfügbaren Datenstrukturierungen und Formate angezeigt. Bemerkung: Die Dienstauflistung
+ist im Mockup nicht visualisiert.
 
 * nutzungsfreundlich (= Publikationsmodell)
     * Geopackage
