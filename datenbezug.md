@@ -21,8 +21,20 @@ Damit wird sichergestellt, dass die verschieden gelagerten Bedürfnisse gut abge
 |Applikation|Verwendung für Datenbezug|
 |---|---|
 |Web GIS Client|Visuelle Sichtung und Bestätigung in der Karte, dass es sich um den gewünschten Datensatz handelt. Zusammenstellung der Themen (Ebenengruppen) des Datenbezugs. Nach Abschluss der Zusammenstellung wird die Downloadliste geöffnet.|
-|Downloadliste|Textuelle Bestätigung, dass es sich um den gewünschten Datensatz handelt. Auswahl des Download-Formates.|
+|Downloadliste|Textuelle Bestätigung, dass es sich um den gewünschten Datensatz handelt. Auswahl von Download-Kanal und -Format.|
 |HTTP- / FTP-Adresse|Stabile Adressen, mit welchen Geopackage / INTERLIS2 direkt bezogen werden kann. Dabei werden die Daten direkt vom Skript des Datenverarbeiters oder von dessen Datei-Manager "angezogen"|
+
+**Download-Kanal und -Format:**
+* Kanal
+    * WMS
+    * WFS
+* FormatE für Datenbezug via HTTP / FTP
+    * Geopackage
+    * INTERLIS2
+    * Shapefile *
+    * DxF *
+
+\* Shapefile und DxF stehen nicht vorberechnet zur Verfügung. Sie werden zur Laufzeit vom System bereitgestellt.    
 
 ## GUI-Mockup der Downloadliste
 
@@ -34,12 +46,10 @@ Pro Thema (= pro Modell) werden die verfügbaren Datenstrukturierungen und Forma
 * nutzungsfreundlich (= Publikationsmodell)
     * Geopackage
     * INTERLIS2
-    * Shapefile *
-    * DxF *
+    * Shapefile
+    * DxF
 * in Originalmodell (= Erfassungsmodell)
     * INTERLIS2
-    
-\* Shapefile und DxF stehen nicht vorberechnet zur Verfügung. Sie werden zur Laufzeit vom System bereitgestellt.
     
 ![Downloadliste](res/datenbezug1.jpg)
 
@@ -64,7 +74,8 @@ Der gesamte Modellinhalt ist also die kleinstmögliche Abgabeeinheit, nicht eine
 Meistens ist in der Datei der Datenabgabe (zum Beispiel im Geopackage) der ganze Kanton Solothurn enthalten.
 
 Ausnahmen:
-* Die Nachführung erfolgt Gebietsweise. Bereitstellung einzeln pro Nachführungsgebiet. Dies trifft zu für
+* Die Nachführung erfolgt Gebietsweise. Bereitstellung erfolgt für das Erhebungsmodell einzeln pro Nachführungsgebiet,
+für das Publikationsmodell wird der ganze Kanton bereitgestellt. Dies trifft zu für
 die amtliche Vermessung und Datensätze in der Zuständigkeit der Gemeinden (Nutzungsplanung, ...)
 * Sehr grosse Datensätze, für welche die kantonsweite Bereitstellung zu Dateien einer Grösse über 1-2 Gb führt. 
 Hintergrund: Download soll bei Downloadrate von 40 Mbit/s nicht mehr wie 5 Minuten beanspruchen. 
