@@ -7,7 +7,7 @@ von Datenprodukten (Datasets, Productsets, ...). [[Link]](core.md)
 * **Data** Enthält die Klassen für die Beschreibung der von der GDI genutzten 
 Datenquellen (GIS-Tabellen, Raster, ...). [[Link]](data.md)
 * **IAM** Klassen zur Konfiguration des Identity und 
-Access Management (Benutzer, Gruppen, Rollen, ...). [Under construction]
+Access Management (Benutzer, Gruppen, Rollen, ...). [[Link]](iam.md)
 * **Contact** Teilmodell zur Definition der Kontaktinformationen 
 bezüglich der genutzten Daten. [Under construction] 
 * **Flow** Modelliert die Informationsflüsse zwecks Übersicht der notwendigen Anpassungen bei
