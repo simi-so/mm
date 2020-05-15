@@ -10,4 +10,4 @@ Abläufe bezüglich der Pflege der Metainformationen ![Link](ablaeufe.md)
 Rollen, Abläufe, ... bezüglich des Datenbezuges ![Link](datenbezug.md)
 
 ## Metamodell
-UML-Klassendiagramme des Metamodelles ![Link](modeldoc/overview.md)
+UML-Klassendiagramme des Metamodelles ![Link](modeldoc/README.md)

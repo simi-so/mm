@@ -32,16 +32,7 @@ package Data {
     dbName* : string
   }
 
-  class "Attribute" as attr {
-    name* : string
-    sort* : int
-    cat_synced* : bool
-    alias : string
-    description : string
-    wgc_format : string
-    json_displayprops: string
-    jinja_template: string
-  }
+  class "Attribut" as attr
 
   class "VectorDS" as vds {
     def_transparency* : int

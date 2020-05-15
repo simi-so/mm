@@ -93,3 +93,9 @@ muss einen engen thematischen Kontext haben (Im Gegensatz zur Map).
 * Hintergrund-Karte (Map) mit FL3 und FL4.
   * Je ein Eintrag in TOC fuer FL3 und FL4.
   * FL3 und FL4 haben je einen Eintrag in der TOC.
+  
+  
+$td Ergänzung des Modelles mit den Aspekten "Metainformationen" und INTERLIS-Modell. Fragen:
+* Wie Dataset - Datasetview abbilden? Was ist das Mengengerüst für mehrere Datasetview pro Dataset --> Config-DB abfragen
+* Ist der Mismatch zwischen Modell und flacher Datenabgabe zu gross? --> Auch hier versuchen, das Mengengerüst abzuschätzen. In wievielen Fällen tut es weh?
+* Haken an der jetzigen Modellierung: Redundanz in der Beschreibung der Attribute!
