@@ -1,0 +1,12 @@
+@startuml
+class "SingleLayer (SL)" as sl << package Core >>
+
+package "Bouncer" {
+	class "ProtectedService" as ps
+    class "Ressource" as res
+}
+
+sl "1-n   " -left- "1-n" res : contains data
+sl "*" -left- "*" res : display in feature info
+res "1-n" -- "1" ps
+@enduml

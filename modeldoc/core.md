@@ -94,6 +94,11 @@ muss einen engen thematischen Kontext haben (Im Gegensatz zur Map).
   * Je ein Eintrag in TOC fuer FL3 und FL4.
   * FL3 und FL4 haben je einen Eintrag in der TOC.
   
+# Fragen - Todos
+
+* Wie die meist zutreffende Komposition LayerList - SingleLayer abbilden? Bei Komposition können viele Informationen von 
+"Mammi" vererbt werden, ohne dass diese nochmals erfasst werden müssen.
+  
   
 $td Ergänzung des Modelles mit den Aspekten "Metainformationen" und INTERLIS-Modell. Fragen:
 * Wie Dataset - Datasetview abbilden? Was ist das Mengengerüst für mehrere Datasetview pro Dataset --> Config-DB abfragen

@@ -56,12 +56,37 @@ Bei Rasterdaten entspricht er einem Rasterlayer (Es werden keine nicht georefere
 |---|---|---|---|
 |wgcDisplayTemplate|String|Jinja-Template, welches ein Custom-Rendering für das Attribut definiert.|
 
-### Versionierung
+### Versionierung der DataSets
 
-Pro SingleLayer können maximal drei DataSet-Objekte mit jeweils anderer Versions-Enum vorkommen:
-* Enum "current": Das aktuell "scharfe" DataSet für den Singlelayer. 
-* Enum "next": Das kommende DataSet für den Singlelayer.
-* Enum "previous": Das vorherige DataSet für den Singlelayer.
+Als Ablösung des improvisierten Tag "Bearbeitung" und zwecks Entschärfung des "Point of no return" bezüglich des 
+Layer-Rollouts wird eine saubere Versionierung der DataSets eingeführt.
+
+Dabei können einem SingleLayer maximal drei Datasets zugewiesen werden:
+* **Previous:** Enthält die vorhergehende, nicht mehr gültige Konfiguration. Nutzen: Auf der Integration kann "Previous" 
+kurzfristig reaktiviert werden, sofern "Current" stark verbockt ist. Sprich alle Aenderungen verwerfen und basierend
+auf "Previous" neu starten.
+* **Current:** Enthält die aktuell gültige Konfiguration.
+* **Next:** Enthält die Entwurfsversion der neuen Konfiguration, welche auf der Integrationsumgebung aktuell 
+erarbeitet wird.
+
+Das Verhalten des zukünftigen "Magic-Button" wird damit von der Umgebung abhängen:
+* In der Produktivumgbung wird immer "Current" verwendet
+* In der Integrationsumgebung wird "Next" verwendet. Falls kein "Next" vorhanden ist, wird "Current" deployt
+
+Im GUI des SingleLayer steht entsprechende Funktionalität zur Verfügung:
+* Entwurfsversion anlegen
+    * Stellt sicher, dass noch kein "Next" existiert. Falls existierend --> Abbruch
+    * Erstellt ein neues "Next" und kopiert alle Eigenschaften des Current in das neue "Next"
+* Entwurfsversion löschen
+    * Löscht "Next", sofern dieses vorhanden ist
+* Entwurfsversion publizieren
+    * Löscht "Previous", sofern dieses vorhanden ist
+    * Rename "Current" auf "Previous"
+    * Rename "Next" auf "Current"
+* "Previous" wieder herstellen
+    * Löscht "Next", sofern vorhanden
+    * Rename "Current" auf "Next"
+    * Rename "Previous" auf "Current"
 
 **Unique-Bedingung:** Mittels Unique-Key wird sichergestellt, dass für einen SingleLayer eine DataSet in beispielsweise der Version "next"
 maximal einmal vorkommt.
