@@ -1,0 +1,23 @@
+@startuml
+[Core] as core
+
+[Bouncer] as bouncer
+[CCC] as ccc
+[Contact] as con
+[Data] as data
+
+[Dependency] as dep
+[Flow] as flow
+[IAM] as iam
+[Print] as print
+
+bouncer --> core
+ccc --> core
+con --> core
+data --> core
+
+dep -up-> core
+flow -up-> core
+iam -up-> core
+print -up-> core
+@enduml

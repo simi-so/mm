@@ -1,0 +1,69 @@
+@startuml
+package Core {
+  abstract class "DataProduct (DP)" as dp {
+      identifier* : string
+      title: string
+      synonyms: string
+      description: string
+      keywords: string
+      remarks: string
+      inWms* : bool
+      inWGC* : bool
+
+      unique(identifier)
+  }
+
+  abstract class "ProductList (PL)" as pl
+
+  class "LayerList (LL)" as ll
+
+  class "Map (MAP)" as map {
+    foreground* : bool
+  }
+
+  class "TableOfContents (TOC)" as toc {
+    name* : string
+    remarks : string
+
+    unique(name)
+  }
+
+  abstract class "SingleActor (SA)" as sa
+
+  class "FacadeLayer (FL)" as fl
+
+  class "SingleLayer (SL)" as sl {
+    owner* : reference
+    dataPublished* : bool
+  }
+
+  class "SingleLayerLinkProperties (SLL)" as sll << (H, grey) Association Class >> {
+      visibility*: bool
+      sort*: int
+      transparency: int
+  }
+
+  class "SingleActorLinkProperties (SAL)" as sal << (H, grey) Association Class >> {
+      visibility*: bool
+      sort*: int
+      transparency: int
+  }
+
+  dp <|-- pl
+  pl <|-- ll
+  pl <|-- map
+
+  dp <|-- sa
+  sa <|-- sl
+  sa <|-- fl
+
+  pl "0..*" - "1..*" toc : [ordered]
+
+  toc "0..*" - "1..*" sa : [Class: SAL]
+  fl "0..*" - "1..*" sl : [Class: SLL]
+
+  'layout help
+  sa -[hidden]> sal
+  sl -[hidden]> sll
+}
+@enduml

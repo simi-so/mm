@@ -1,0 +1,35 @@
+# Contact
+
+![Contact](../puml_output/simi_contact.png) 
+
+Kontaktinformationen können einzig zu einem SingleActor erfasst werden. Auf Erfassung zu den folgenden Klassen wurde
+verzichtet:
+* Map: Information ist uns zu wenig wichtig
+* LayerGroup: Folgt aus SingleActor. Aufgrund des engen thematischen Kontext kann eine Layergroup nicht mehrere Datenherren haben.
+* Softwarekomponenten: Die Informationen sind in der Doku zur jeweiligen Komponente enthalten und sind hier überflüssig. 
+
+## Klassen
+
+### DataContact
+
+Beziehungstabelle in welcher jede Beziehung zwischen einem Kontakt und einem SingleLayer mit der entsprechenden Kontaktrolle qualifiziert wird.
+
+### Contact
+
+Basisklasse welche die gemeinsamen Eigenschaften von Person und Organisation vereint.
+
+### ContactRole
+
+Umfasst alle vorkommenden Kontaktrollen zwischen einem Kontakt und einem SingleLayer.
+
+Beispiele für Kontaktrollen:
+* Ist Datenherr von
+* Hat Modell erstellt
+
+### Organisation
+
+Umfasst die notwendigen Informationen zu einer Organisationseinheit
+
+### Person
+
+Umfasst die notwendigen Informationen zu einer Kontaktperson (intern und extern)

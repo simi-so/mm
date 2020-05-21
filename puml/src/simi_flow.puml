@@ -1,27 +1,11 @@
 @startuml
+class "SingleLayer (SL)" as sl << package Core >>
+
 package Flow {
-
-  class "SingleLayer (SL)" as sl << package Core >> {
-  }
-
-  class "Artefact (AF)" as af {
-  	name*  : string
-    description : string
-    void unique(ref<AT>, name)
-  }
-
-  class "ArtefactType (AT)" as at {
-  	type* : string
-    description : string
-    void unique(type)
-  }
-
-  class "LayerUsage" as lu {
-  	usagetype* : enum
-  }
-
-  af "*" -right- "1" at
-  af "1" -- "1..*" lu
-  lu "*" -- "1" sl
+  class "Job" as job
+  class "LayerUsage" as lu
 }
+
+job "1" -- "1..*" lu
+lu "*" -- "1" sl
 @enduml
