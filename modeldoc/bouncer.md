@@ -15,16 +15,16 @@ Metamodell für die Bouncer-Konfiguration:
 ![Bouncer](../puml_output/simi_bouncer.png)
 
 Beziehungen Ressource - SingleLayer:
-* contains data: Beschreibt, aus welchen Ebenen eine Ressource Daten bezieht
+* contains data: Beschreibt, aus welchen Ebenen eine Ressource Daten bezieht.
 * display in feature info: Beschreibt, in welchen Ebenen die Ressource im FeatureInfo-Dialog des Web GIS Client zum Öffnen angeboten wird.
 
 ## Klassenbeschreibung
 
-### ProtectedService
+### Klasse ProtectedService
 
 Service (des Servers), dessen Ressourcen via Bouncer geschützt werden. Beispielsweise "Jasper Server"
 
-#### Attribute
+#### Attributbeschreibung
 
 |Name|Typ|Z|Beschreibung|
 |---|---|---|---|
@@ -32,15 +32,31 @@ Service (des Servers), dessen Ressourcen via Bouncer geschützt werden. Beispiel
 |Name|String(100)|j|Sprechender Name für die Ressource.|
 |Description|String|n|AGI-Interne Beschreibung zur Ressource.|
 
-### Ressource
+### Klasse Ressource
 
 Die Ressource, welche mit den Daten aus 1-n SingleLayern erzeugt wird. Typisches Beispiel ist ein Report, welcher
 Daten in der Form von Tabellen / Karten / etc. ausgibt.
 
-#### Attribute
+#### Attributbeschreibung
 
 |Name|Typ|Z|Beschreibung|
 |---|---|---|---|
 |UrlSnipplet|String(100)|j|Schnipsel, welches vom Bouncer in das URL-Template des BackgroundService eingefügt wird, um die Ressource mittels HTTP anzufordern.|
 |Name|String(100)|j|Sprechender Name für die Ressource. Muss ohne encoding als Unterpfad einer URL verwendet werden können. Sprich name = urlencode(name).|
 |Description|String|n|AGI-Interne Beschreibung zur Ressource.|
+
+### Klasse LayerRelation
+
+Enthält die Konfiguration der Beziehungstypen Ressource - SingleLayer:
+* queries: Beschreibt, aus welchen Ebenen eine Ressource Daten bezieht.
+* show in feature info: Beschreibt, in welchen Ebenen die Ressource im FeatureInfo-Dialog des Web GIS Client zum Öffnen angeboten wird.
+
+#### Attributbeschreibung
+
+|Name|Typ|Z|Beschreibung|
+|---|---|---|---|
+|relationType|enum|j|Werte der enum: "show_in_fi" und "queries".|
+
+#### Konstraints
+
+Unique-Key über relationType und die beiden FK's auf Ressource und SingleLayer.

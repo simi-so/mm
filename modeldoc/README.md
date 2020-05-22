@@ -12,12 +12,16 @@ Access Management (Benutzer, Gruppen, Rollen, ...). [[Link]](iam.md)
 bezüglich der genutzten Daten. [[Link]](contact.md)
 * **Flow** Modelliert die Informationsflüsse zwecks Übersicht der notwendigen Anpassungen bei
 Schemaänderungen etc. [[Link]](flow.md)
-* **CCC** Modelliert die einzelnen CCC-Integrationen (CCC-Client)[[Link]](ccc.md)
+* **CCC** Modelliert die einzelnen CCC-Integrationen (CCC-Client). [[Link]](ccc.md)
 * **Bouncer** Klassen zur Konfiguration des Bouncer-Proxy, 
 welcher den Zugriff auf eine Ressource (Report, ...) einschränkt. [[Link]](bouncer.md)
-* **Print** Modelliert die Metainformationen für das Erzeugen von Karten-PDF's [[Link]](print.md)
-* **Dependency** Liste der Komponenten, welche von Kern-Artefakten der GDI abhängig sind [[Link]](dependency.md)
-* **Featureinfo** Erweitert die möglichen Quellen einer Featureinfo-Abfrage [[Link]](featureinfo.md)  
+* **Print** Modelliert die Metainformationen für das Erzeugen von Karten-PDF's. [[Link]](print.md)
+* **Dependency** Liste der Komponenten, welche von Kern-Artefakten der GDI abhängig sind. [[Link]](dependency.md)
+* **Featureinfo** Erweitert die möglichen Quellen einer Featureinfo-Abfrage. [[Link]](featureinfo.md)  
+
+## Konstraints
+
+Für alle \*:\* Beziehungen in den Teilmodellen ist ein UK über die FK's zu erstellen.
 
 ## Erläuterungen zur Kapitelstruktur innerhalb der Teilmodelle
 
@@ -31,22 +35,22 @@ Strukturierung der *.md der Teilmodelle:
 ### Konstraints -- Falls zutreffend
 ```
 
-In den Modell-Konstraints werden auch *:* Beziehungen genauer spezifiziert, sofern dafür ein applikatorischer Konstraint
-sinnvoll ist.
-
 ### Spalten der Attributbeschreibung
 
 * **Name:** Attributname
 * **Typ:** Java-Datentyp des Attributes. String wird zusätzlich mit der Länge qualifiziert.
-* **Z** Ist das Attribut **z**wingend erforderlich? (j,n)
-* **Beschreibung** Erläuterungen zum Attribut
+* **Z:** Ist das Attribut **z**wingend erforderlich? (j,n)
+* **Beschreibung:** Erläuterungen zum Attribut
 
 Die Attributtabellen sind sortiert gemäss:
 1. Zwingende alphabetisch
 2. Optionale alphabetisch
 
+#### Snipplet für Tabellenerstellung
+
 ```markdown
 |Name|Typ|Z|Beschreibung|
+|---|---|---|---|
 ```
 
 #### Stringlängen anschaulich
@@ -87,7 +91,7 @@ Die Attributtabellen sind sortiert gemäss:
 |-|Antwort...|-|
 |core.Map|Hintergrundkarten bestehen heute doppelt im AGDI (für SO-Locator) und als "Feeder-Projekt" für den WMTS. Kann dies einfach verhindert werden?|Andi|
 |-|Antwort...|-|
-|SL - DSV|In Ruhe reflektieren, ob ein Teil der Module besser auf DSV wie auf SL verknüpft werden sollen (u.a: Versionierung)|Oliver|
+|SL - DSV|In Ruhe reflektieren, ob ein Teil der Module besser auf DSV / DS wie auf SL verknüpft werden sollen (u.a: Versionierung)|Oliver|
 |-|Antwort...|-|
 
 

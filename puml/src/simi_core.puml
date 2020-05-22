@@ -11,8 +11,6 @@ package Core {
   class "SingleLayer (SL)" as sl
   class "ExtWmsLayer" as ewl
 
-  class "ExternalWms" as ew
-
   class "PropertiesInFacade" as pif << (H, grey) Association Class >>
   class "PropertiesInList" as pil << (H, grey) Association Class >>
 
@@ -31,7 +29,5 @@ package Core {
 
   fl "1" -- "1..n" pif : "      "
   pif "*" -up- "1" sl : "      "
-
-  ewl "1-n" -- "1" ew
 }
 @enduml

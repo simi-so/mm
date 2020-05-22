@@ -6,58 +6,87 @@ gesetzt.
 
 ![IAM](../puml_output/simi_iam.png)
 
-## Permission
+## Modell-Konstraints
+
+Ein Benutzer soll grundsätzlich nicht direkt und indirekt via Gruppe der gleichen Rolle zugewiesen werden. Dies ist
+aber eher wichtig, um die Übersicht zu behalten, als dass Missachtung des Konstraints zum nicht Funktionieren der 
+GDI führen würde. 
+
+## Klasse Permission
 
 Steuert, ob eine Rolle gegenüber einer Ressource gar keine, nur lesende, oder lesende und schreibende Berechtigung hat.
 
-### Attribute
+### Attributbeschreibung
 
 |Name|Typ|Z|Beschreibung|
 |---|---|---|---|
-|level|Integer|j|Bei "2" hat die Rolle lesenden und schreibenden Zugriff, bei "1" nur lesenden.|
-|priority|Integer|j|$td config.json anschauen.|
+|level|enum|j|"read" = 1, "read_write" = 2. Sortierung muss in Datenbank entweder als int's oder als "1_read" etc. vorkommen, damit einfache Permission-Queries geschrieben werden können. SQL: `max(level) |
+|priority|int|j|$td config.json anschauen. Priority ist hoffentlich auch in Config-DB obsolet.|
 
-### Constraints
+### Konstraints
 
-Unique über die Fremdschlüssel zu SingleLayer und Role.
+UK über FK's.
 
-## Role (PermissionSet)
+## Klasse Role (PermissionSet)
 
-Bündelt 1-n Permissions gegenüber 1-n SingleLayer
+Bündelt 1-n Permissions gegenüber 1-n SingleLayer.
 
-### Attribute
+### Attributbeschreibung
 
 |Name|Typ|Z|Beschreibung|
 |---|---|---|---|
 |name|String(100)|j|Name der Rolle.|
-|notes|String|n|AGI-Notizen zur Rolle.|
+|remarks|String|n|AGI-Notizen zur Rolle.|
 
-## Group
+### Konstraints
+
+UK auf "name".
+
+## Klasse Group
 
 Meist organisatorisch bedingte Gruppe, welche die gleichen Rollen gegenüber SingleLayer hat. 
 
-### Attribute
+### Attributbeschreibung
 
 |Name|Typ|Z|Beschreibung|
 |---|---|---|---|
 |name|String(100)|j|Name der Gruppe.|
-|notes|String|n|AGI-Notizen zur Gruppe.|
+|remarks|String|n|AGI-Notizen zur Gruppe.|
 
-## User
+### Konstraints
+
+UK auf "name".
+
+## Klasse User
 
 Benutzer der GDI. Die Identität des Benutzers wird via SES des AIO verifiziert.
 
-Es bestehen funktionale Einheiten der GDI mit eigenem (redundantem) Benutzerverzeichnis. Bsp: GRETL
+Es bestehen funktionale Einheiten der GDI mit eigenem (redundantem) Benutzerverzeichnis. Bsp: GRETL.
 
 ### Attribute
 
 |Name|Typ|Z|Beschreibung|
 |---|---|---|---|
 |name|String(100)|j|Name des Benutzers.|
-|notes|String|n|AGI-Notizen zum Benutzer.|
+|vorname|String(100)|j|Vorname des Benutzers.|
+|remarks|String|n|AGI-Notizen zum Benutzer.|
 
-### Constraints
+### Konstraints
 
-Ein Benutzer soll grundsätzlich nicht direkt und indirekt via Gruppe der gleichen Rolle zugewiesen werden. Dies ist
-aber eher wichtig, um die Übersicht zu behalten, als dass Missachtung des Constraints zum nicht Funktionieren der 
-GDI führen würde. 
+UK über name, vorname und FK auf Team
+
+## Klasse Team
+
+Organisationseinheit des User. AFU, ARP, ...
+
+### Attribute
+
+|Name|Typ|Z|Beschreibung|
+|---|---|---|---|
+|name|String(100)|j|Name der Organisationseinheit.|
+|remarks|String|n|AGI-Notizen zum Benutzer.|
+
+### Konstraints
+
+UK auf name
+

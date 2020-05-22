@@ -28,9 +28,9 @@ Beispiele:
 
 ### Konstraints
 
-Feld "identifier" ist GDI-weit eindeutig
+Feld "identifier" ist GDI-weit eindeutig.
 
-## Rund um Klasse  ProductList
+## "ProductList Klassen"
 
 ### Klasse ProductList
 
@@ -74,7 +74,7 @@ erscheinen beispielsweise nicht als WMS-Ebene und werden in der TOC des Web GIS 
 
 #### Attributbeschreibung
 
-SA hat keine weiteren eigene Attribute
+SA hat keine weiteren eigene Attribute.
 
 ### Klasse FacadeLayer (FL)
 
@@ -83,11 +83,11 @@ Aggregationslayer, welcher von den Applikationen als ein Layer angesprochen wird
 Layereigenschaften wie Sichtbarkeit und Transparenz wirken sich nur auf den FacadeLayer als ganzes aus und nicht 
 individuell auf die im Facadelayer enthaltenen Unterlayer. Die enthaltenen Unterlayer sind im TOC nicht sichtbar.
 
-Beispiel: Plan für das Grundbuch
+Beispiel: Plan für das Grundbuch.
 
 #### Attributbeschreibung
 
-FL hat keine weiteren eigene Attribute
+FL hat keine weiteren eigene Attribute.
 
 #### Bemerkungen
 
@@ -108,7 +108,7 @@ SL hat keine weiteren eigene Attribute.
 
 ### Klasse PropertiesInFacade
 
-Attributierte Verknüpfungstabelle der m:n Beziehung zwischen FL und SL
+Attributierte Verknüpfungstabelle der m:n Beziehung zwischen FL und SL.
 
 #### Attributbeschreibung
 
@@ -119,11 +119,25 @@ Attributierte Verknüpfungstabelle der m:n Beziehung zwischen FL und SL
 
 #### Konstraints
 
-Maximal ein Objekt mit gleichen FK's zu FL und SL
+UK über die FK's.
+
+### Klasse ExtWmsLayer
+
+Ebene eines externen WMS, der in GDI Gruppenebenen und Karten eingebunden ist.
+
+#### Attributbeschreibung
+
+|Name|Typ|Z|Beschreibung|
+|---|---|---|---|
+|wmsURL|String(200)|j|URL des GDI-externen WMS.|
+
+#### Konstraints
+
+UK über wmsURL und identifier. 
 
 ## Klasse ProperitesInList
 
-Attributierte Verknüpfungstabelle der m:n Beziehung zwischen PL und SA
+Attributierte Verknüpfungstabelle der m:n Beziehung zwischen PL und SA.
 
 ### Attributbeschreibung
 
@@ -135,15 +149,10 @@ Attributierte Verknüpfungstabelle der m:n Beziehung zwischen PL und SA
 
 ### Konstraints
 
-Maximal ein Objekt mit gleichen FK's zu PL und SA
+UK über die FK's.
 
 ## Beispielkonfigurationen und resultierende Einträge in PL - SAL - SA:
 
 * Einzel publiziertes DS: Keine Beziehung zu einem PL
 * Einzel publizierter FL: Keine Beziehung zu einem PL
-* LL mit FL und DS: Je ein Eintrag fuer FL und DS in der SAL   
-  
-## Fragen - Todos
-
-* Wie die meist zutreffende Komposition LayerList - SingleLayer abbilden? Bei Komposition können viele Informationen von 
-"Mammi" vererbt werden, ohne dass diese nochmals erfasst werden müssen.
+* LL mit FL und DS: Je ein Eintrag fuer FL und DS in der SAL

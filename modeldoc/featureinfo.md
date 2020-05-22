@@ -37,4 +37,4 @@ Bei einem sqlQuery wird über die erste queries-Verknüpfung die Datenbank ermit
 |relation|enum|j|Beziehungstyp zwischen Featureinfo und SL (is_for_layer, queries).|
 
 ### Konstraints
-* Jede Zeile ist unique (über Beziehungstyp und die beidenn FK's auf Featureinfo, SL)
+UK auf FK's und "relation".

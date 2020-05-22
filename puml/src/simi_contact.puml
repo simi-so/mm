@@ -10,11 +10,11 @@ package Contact {
 }
 
 sl "1" -up- "1..n" dc
-cr "1 " -right- "1..n" dc
+cr "1 " -right- "1..n" dc : "       "
 dc "1..n" -- "1" con
 
 con <|-- pers
 con <|-- org
 
-pers "1..n" -right- "  1" org
+pers "1..n" -right- "  1" org : "       "
 @enduml

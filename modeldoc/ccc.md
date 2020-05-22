@@ -4,11 +4,11 @@
 
 ## Klassenbeschreibung
 
-### CCC Client
+### Klasse CCC Client
 
 Repräsentiert die Anbindung einer Fachapplikation via CCC-Schnittstelle.
 
-**Attributbeschreibungen**
+#### Attributbeschreibung
 
 |Name|Typ|Z|Beschreibung|
 |---|---|---|---|
@@ -16,28 +16,36 @@ Repräsentiert die Anbindung einer Fachapplikation via CCC-Schnittstelle.
 |title|String|Ja|Titel, welcher für das "verheiratete" WGC-Fenster angezeigt wird.|
 |notes|String|Nein|Interne Bemerkungen des AGI zu dieser Anbindung.|
 
-### Locator Layer
+### Klasse Locator Layer
 
 Ebene, welche im Priority-Locator für das Heranzoomen vor dem Editieren genutzt wird. 
 Beispiel mit zwei konfigurierten Ebenen:
 1. Zoom auf ein Grundstück
 2. Zoom auf eine Gemeinde
 
-**Attributbeschreibungen**
+#### Attributbeschreibung
 
 |Name|Typ|Z|Beschreibung|
 |---|---|---|---|
 |sort_index|Integer|Ja|Sortierungsindex. Bestimmt, in welcher Priorität die Ebene für das Lokalisieren verwendet wird.|
 |filter|String|Ja|Filter, mit welchem mittels Dataservice die zutreffenden Geometrien für das Lokalisieren abgefragt werden.|
 
-### Notify Layer
+#### Konstraints
+
+UK über filter und die beiden FK's.
+
+### Klasse Notify Layer
 
 Ebene, für die ein Rückaufruf GIS --> Fachapplikation über das Feature-Info Fenster konfiguriert ist.
 
-**Attributbeschreibungen**
+#### Attributbeschreibung
 
 |Name|Typ|Z|Beschreibung|
 |---|---|---|---|
 |title|String|Ja|Bezeichnung, mit welcher der Rückaufruf im Feature-Info Fenster angezeigt wird.|
 |attributeMap|Json|Ja|Mapping des im CCC-Protokoll verwendeten Attributnamens auf den Attributnamen des SingleLayer. Strukturierung siehe Doku des config.json für CCC.|
+
+#### Konstraints
+
+UK über die FK's.
 

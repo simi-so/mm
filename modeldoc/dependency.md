@@ -1,4 +1,4 @@
-# Dependencies (Abhängige Komponenten)
+# Dependency (Abhängige Komponenten)
 
 Beschreibt die internen und externen Komponenten, welche von Artefakten der GDI abhängig sind.
 
@@ -16,4 +16,18 @@ Beispiele für Datenstrukturen:
 
 Modelliert sind auch Abhängigkeiten einer Fachapplikation auf eine Map oder eine Layergroup (Wie beispielsweise bei Baugis, ArtPlus der Fall)
 
-Nicht Modelliert ist, auf welche Applikation / Service sich die Abhängigkeit bezieht (Ob auf WGC, WMS, DataService, ...)
+Nicht Modelliert ist, auf welche Applikation / Service sich die Abhängigkeit bezieht (Ob auf WGC, WMS, DataService, ...).
+Dies sollte der Dokumentation der Komponente entnommen werden können.
+
+## Klasse Component
+
+### Attributbeschreibung
+
+|Name|Typ|Z|Beschreibung|
+|---|---|---|---|
+|name|String(100)|j|Benennung der Komponente.|
+|remarks|String|n|Interne Bemerkungen zur Komponente.|
+
+### Konstraints
+
+UK auf "name".

@@ -12,13 +12,13 @@ Stellt die Klassen des Datenkonfigurationsteils dar
 ### Beziehung SingleLayer - DataSetView
 
 Die 1 : 0..1 Beziehung existiert im Datenmodell bewusst. Motivationen:
-* Schlanke "Schnittstelle" zwischen den Teilmodellen Core und Data
-* Technisch: Möglichkeit, die Vererbungsstrategien für Dataproduct und Kinder in Core anders zu wählen wie für DSV und Kinder in Data
+* Schlanke "Schnittstelle" zwischen den Teilmodellen Core und Data.
+* Technisch: Möglichkeit, die Vererbungsstrategien für Dataproduct und Kinder in Core anders zu wählen wie für DSV und Kinder in Data.
 * "Poor-Man-Versioning": Es besteht die Möglichkeit, temporär mehrere DSV mit oder ohne verdoppelten DS zu halten. Beispielablauf:
-    * Kopie des sich ändernden DS mit seinen DSV's erstellen (Zeigen beispielsweise auf neue Modellversion)
-    * Rollout 1: Original-DSV's haben weiterhin die Referenz auf den SingleLayer --> Diese werden deployt, und nicht die veränderten Kopien
+    * Kopie des sich ändernden DS mit seinen DSV's erstellen (Zeigen beispielsweise auf neue Modellversion).
+    * Rollout 1: Original-DSV's haben weiterhin die Referenz auf den SingleLayer --> Diese werden deployt, und nicht die veränderten Kopien.
     * Änderungen auf den Kopien sind fertiggestellt --> Kopien erhalten die Referenz auf die entsprechenden SingleLayer, und sind damit für den Rollout "scharf".
-    * Rollout 2: Kopien werden deployt
+    * Rollout 2: Kopien werden deployt.
     
 Je nach Risikoeinschätzung werden vor oder nach dem Rollout 2 die Originale gelöscht. Solange die Originale noch vorhanden sind, 
 ist ein relativ einfaches "rollback" zu machen.
@@ -26,7 +26,10 @@ ist ein relativ einfaches "rollback" zu machen.
 ### Klasse DataSet
 
 Bei Vektor- oder tabellarischen Daten entspricht ein Dataset-Eintrag einer (Geo-) Tabelle. 
-Bei Rasterdaten entspricht er einem Rasterlayer (Es werden keine nicht georeferenzierten Bilder erfasst).
+Bei Rasterdaten entspricht es einem Rasterlayer (Es werden keine nicht georeferenzierten Bilder erfasst).
+
+Bemerkung zur Vererbungs-Strategie: Es ist OK, wenn die DS-Typen (TableDS, RasterDS) nicht in einer physischen
+Tabelle "DataSet" zusammengefasst werden.
 
 #### Attributbeschreibung
 
@@ -46,10 +49,15 @@ Daten ist das Styling als QML optional enthalten.
 
 |Name|Typ|Z|Beschreibung|
 |---|---|---|---|
-|name|String(100)|n|Interne Bezeichnung der DataSetView, um diese von weiteren DSV's des gleichen DS unterscheiden zu können.|
+|name|String(100)|j|Interne Bezeichnung der DataSetView, um diese von weiteren DSV's des gleichen DS unterscheiden zu können. Wird nur manuell gesetzt falls defaultView=false.|
+|defaultView|boolean|j|Für ca. 3/4 der DS gibt es "nur" die Default-View. Bei defaultView=true setzt SIMI [name] auf "default". Default: true.|
 |remarks|String|n|Interne Bemerkungen zur DSV.|
 |styleServer|byte[]|n|QML-Datei, welche das Styling der Ebene in QGIS-Server bestimmt.|
 |styleClient|byte[]|n|QML-Datei, welche das Styling der Ebene in QGIS-Desktop bestimmt. Falls null und style_server <> null wird style_server verwendet.|
+
+#### Konstraints
+
+UK auf den FK zum SingleLayer.
 
 ## Klassen in Teilmodell "tabular"
 
@@ -62,7 +70,6 @@ Spalten (via AttributeList) wie auch auf die angebotenen Zeilen (mittels Where-C
 
 |Name|Typ|Z|Beschreibung|
 |---|---|---|---|
-|fiSource|enum|j|wms oder query oder module. $td|
 |whereClause|String(200)|n|Where-Clause zur Einschränkung der Anzahl Zeilen in der TableView.|
 |geomFieldName|String(100)|n|Bei mehreren Geometriespalten: Name der zu verwendenden Geometrie der TableView.|
 
@@ -77,25 +84,49 @@ Sortierte Liste der Attribute mit Alias einer TableView.
 |sort|int|j|Sortierung in WMS Featureinfo und WGC.|
 |alias|String(100)|n|Sprechende Bezeichnung des Attributes in WMS und WGC Featureinfo.|
 |wmsFiFormat|String(100)|n|Python Formattierungs-String, welcher die Formatierung des Attributes für WMS GetFeatureInfo steuert.|
-|wgcDisplayProps4Json|Json|n|Definiert Alias, Reihenfolge, Wertformatierung für die Properties eines Json-Feldes.| 
+|displayProps4Json|Json|n|Definiert Alias, Reihenfolge, Wertformatierung für die Properties eines Json-Feldes.|
+
+#### Konstraints
+
+UK über FK's. 
 
 #### Bemerkungen
 
-* wmsFiFormat: Darf nur gesetzt sein, wenn TableView.wgcDisplayTemplate leer ist (Anwendung mit Default-Template).
-* wgcDisplayProps4Json: Darf nur gesetzt sein, wenn TableView.wgcDisplayTemplate leer ist,
- und es sich um ein json-Feld handelt.
+"wmsFiFormat" und "displayProps4Json" sind nur aktiv, wenn für die Ebene keine separate FeatureInfo-Konfiguration
+ erstellt wurde (Teilmodell Featureinfo).
  
 ### Klasse TableDS
 
-Datenbank-Tabelle oder -View.
+Tabelle einer Datenbank der GDI oder mit Bezug zur GDI
 
 #### Attributbeschreibung
 
 |Name|Typ|Z|Beschreibung|
 |---|---|---|---|
 |tableName|String(100)|j|Name der Tabelle oder View in der Datenbank|
+
+#### Konstraints
+
+Es wird explizit **kein** Konstraint auf tableName gesetzt, um das Arbeiten mit Versionen zu erlauben.
+
+### Klasse ExternalTable
+
+Tabelle einer externen Datenbank, aus welcher die GDI liest oder schreibt (GRETL).
+
+#### Attributbeschreibung
+
+Keine eigenen Attribute.
+ 
+### Klasse PostgresTable
+
+GDI Postgres-Tabelle oder -View.
+
+#### Attributbeschreibung
+
+|Name|Typ|Z|Beschreibung|
+|---|---|---|---|
 |idFieldName|String(100)|j|Name des Attributes, mit welchem die Objekte der Tabelle eindeutig identifiziert werden.|
-|rawDownload|boolean|j|Gibt an, ob das TableDS in der Form von AtOS, DataService, WFS bezogen werden kann. Default: Ja|
+|rawDownload|boolean|j|Gibt an, ob die PostgresTable in der Form von AtOS, DataService, WFS bezogen werden kann. Default: Ja|
 |catSyncStamp|DateTime|j|Zeitpuntk des letzten Abgleiches mit dem effektiven Schema der Geodatenbank.|
 |geomFieldName|String(100)|n|Name des Geometrieattributes. Null, wenn die Tabelle keine oder mehrere Geometrien umfasst.|
 
@@ -107,15 +138,15 @@ Umfasst die Eigenschaften eines Attributs einer PostgresDS. Die Geometriespalten
 
 |Name|Typ|Z|Beschreibung|
 |---|---|---|---|
-|name|String(100)|j|Name des Attributes in Postgres. Maximallänge in Postgres scheint 64 zu sein, darum String(100)|
+|name|String(100)|j|Name des Attributes in Postgres. Maximallänge in Postgres scheint 64 zu sein, darum String(100).|
 |typeName|String(100)|j|Name des Datentypes des Attributes.|
 |catSynced|boolean|j|Gibt an, ob das Attribut bei der letzten Katalogabfrage in der Datenbank vorhanden war.|
 |nameInShape|String(7)|n|Optional von Fachamt definierbarer Name für den Shapefileexport.|
-|description|String|n|Beschreibung (Metadaten) zum Attribut. Wird initial aus INTERLIS-Modell befüllt|
+|description|String|n|Beschreibung (Metadaten) zum Attribut. Wird initial aus INTERLIS-Modell befüllt.|
 
 #### Konstraints
 
-* name: Ist innerhalb eines TableDS unique.
+UK über "name" und FK zu PostgresTable.
     
 #### Bemerkungen:
 * Die Namen der Attribute werden mittels Katalogabfrage aus Postgres gelesen.
@@ -129,8 +160,12 @@ Schema 1 : 0..1 Modell aus. Es kann also maximal ein "Gebrauchsmodell" pro Schem
 
 |Name|Typ|Z|Beschreibung|
 |---|---|---|---|
-|schemaName|String(100)|j|Name des Schemas|
-|modelName|String(100)|n|Name des INTERLIS-Modelles, mit welchem das Schema angelegt wurde|
+|schemaName|String(100)|j|Name des Schemas.|
+|modelName|String(100)|n|Name des INTERLIS-Modelles, mit welchem das Schema angelegt wurde.|
+
+#### Konstraints
+
+UK über schemaName, modelName und FK auf PostgresDB.
 
 ### Klasse PostgresDB
 
@@ -143,9 +178,9 @@ Postgres-Datenbank, in welcher das Schema (PostgresSchema) enthalten ist. Univer
 
 |Name|Typ|Z|Beschreibung|
 |---|---|---|---|
-|dbName|String(100)|j|Name der Datenbank auf dem Cluster|
-|clusterHost|String(100)|j|Hostname des Postgres-Cluster|
-|clusterPort|int|j|Port des Cluster|
+|dbName|String(100)|j|Name der Datenbank auf dem Cluster.|
+|clusterHost|String(100)|j|Hostname des Postgres-Cluster.|
+|clusterPort|int|j|Port des Cluster.|
 
 ## Klassen in Teilmodell "raster"
 
@@ -172,8 +207,8 @@ Ausgestaltung abhängig von den Resultaten der Abklärung zur "besten" Raster-Da
 
 Im Minimalszenario weiss SIMI "viel" vom Pub-Modell und -Schema eines Themas, und sehr wenig vom Edit-Modell und -Schema.
 Minimalanforderungen bezüglich dem Edit-Modell und Schema:
-* Ausgabe, welche Zieltabellen von der Änderung einer Quelltabelle potentielle betroffen sind (Teilmodell Flow "downstream").
-* Für die Datenbereitstellung idenfifizieren, welches Edit-Modell zu einem Pub TableDS "gehört" (Teilmodell Flow "upstream").
+* Ausgabe, welche Zieltabellen von der Änderung einer Quelltabelle potentiell betroffen sind (Teilmodell Flow "downstream").
+* Für die Datenbereitstellung idenfifizieren, welches Edit-Modell zu einer Pub PostgresTable "gehört" (Teilmodell Flow "upstream").
 
 ## Eigenschaften Matrix
 
