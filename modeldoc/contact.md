@@ -4,8 +4,8 @@
 
 Kontaktinformationen können einzig zu einem SingleActor erfasst werden. Auf Erfassung zu den folgenden Klassen wurde
 verzichtet:
-* Map: Information ist uns zu wenig wichtig
-* LayerGroup: Folgt aus SingleActor. Aufgrund des engen thematischen Kontext kann eine Layergroup nicht mehrere Datenherren haben.
+* Map: Information ist zu wenig wichtig
+* LayerGroup: Folgt aus SingleActor. Aufgrund des engen thematischen Kontext sollte eine Layergroup nicht mehrere Datenherren haben.
 * Softwarekomponenten: Die Informationen sind in der Doku zur jeweiligen Komponente enthalten und sind hier überflüssig. 
 
 ## Klassen

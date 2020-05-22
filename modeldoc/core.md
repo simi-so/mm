@@ -16,11 +16,68 @@ Beispiele:
 
 ### Attributbeschreibung
 
+|Name|Typ|Z|Beschreibung|
+|---|---|---|---|
+|identifier|String(100)|j|Eindeutiger hierarchischer Identifier des DataProduct (ch.so.fuu.bar).|
+|in WGC|boolean|j|Steuert, ob das Dataproduct im WebGIS Client publiziert ist. Default: Ja|
+|inWMS|boolean|j|Gibt an, ob die Ebene im WMS vorkommen soll. Default: Ja. Analoge Steuerung für DataService, WFS siehe data.PostgresDS.inDataService.|
+|keywords|String(200)|n|Stichworte für das DataProduct. Können auch thematische Überbegriffe sein.|
+|remarks|String|n|Interne Bemerkungen.|
+|synonyms|String(200)|n|Synonyme für das DataProduct.|
+|title|String(200)|n|Angezeigter Titel (Bezeichnung) des Dataproduct. Falls null in Erstellungsphase wird identifier verwendet.|
+
 ### Konstraints
 
 Feld "identifier" ist GDI-weit eindeutig
 
-## Klasse FacadeLayer (FL)
+## Rund um Klasse  ProductList
+
+### Klasse ProductList
+
+Sortierte Liste von Einzellayern (=SingleActor), welche im Web GIS Client „explodiert“ dargestellt wird.
+
+Beispiele: 
+* Sortierte Liste von Einzeldatensatzdarstellungen (=DataSet), die gemeinsam als eine WMS „Gruppenebene“ dargestellt wird.
+* Sortierte Liste von SA's für eine Map
+
+#### Attributbeschreibung
+
+ProductList hat keine weiteren eigene Attribute.
+
+### Klasse Map
+
+Die enthaltenen SingleActor können aus beliebigen thematischen Kontexten zusammengesetzt sein.
+
+Da eine Map häufig aus 1-n LayerList's zusammengesetzt wird: Im GUI wird eine Hilfsfunktion implementiert, 
+mit welcher in der Karte noch nicht vorhandene SA's einer LL beigefügt werden können.
+
+#### Attributbeschreibung
+
+|Name|Typ|Z|Beschreibung|
+|---|---|---|---|
+|background|boolean|j|Gibt an, ob es sich um eine Hintergrundkarte handelt oder nicht.|
+
+### Klasse LayerList (LL)
+
+Die enthaltenen SingleActor haben einen engen thematischen Kontext.
+
+#### Attributbeschreibung
+
+LL hat keine weiteren eigene Attribute.
+
+## Rund um Klasse SingleActor
+
+### Klasse SingleActor (SA)
+
+Einzelebene oder FacadeLayer. Verhält sich in den Clients immer wie eine einzelne Ebene. Die Kindebenen eines FacadeLayer
+erscheinen beispielsweise nicht als WMS-Ebene und werden in der TOC des Web GIS Client nicht angezeigt.
+
+#### Attributbeschreibung
+
+SA hat keine weiteren eigene Attribute
+
+### Klasse FacadeLayer (FL)
+
 Aggregationslayer, welcher von den Applikationen als ein Layer angesprochen wird.
 
 Layereigenschaften wie Sichtbarkeit und Transparenz wirken sich nur auf den FacadeLayer als ganzes aus und nicht 
@@ -28,24 +85,16 @@ individuell auf die im Facadelayer enthaltenen Unterlayer. Die enthaltenen Unter
 
 Beispiel: Plan für das Grundbuch
 
-Im GUI steht eine Funktion zur Verfügung, um automatisiert eineb FacadeLayer in eine LayerList umzuwandeln.
+#### Attributbeschreibung
 
-## Klasse LayerList (LL)
+FL hat keine weiteren eigene Attribute
 
-Sortierte Liste von Einzellayern (=SingleActor), welche im Webclient „explodiert“ dargestellt wird.
+#### Bemerkungen
 
-Im GUI steht eine Funktion zur Verfügung, um automatisiert eine LayerList in einen FacadeLayer umzuwandeln. 
+Die Anforderungen an das Modell bewirken, dass LayerList und Facadelayer neu im Modell "weit entfernt" sind.
+Die Umwandlung von FL zu LL oder umgekehrt erfordert also etwas Handarbeit.
 
-## Klasse SingleActor (SA)
-
-Einzelebene oder FacadeLayer. Verhält sich in den Clients immer wie eine einzelne Ebene. Die Kindebenen eines FacadeLayer
-erscheinen beispielsweise nicht als WMS-Ebene und werden in der TOC des Web GIS Client nicht angezeigt.
-
-## Klasse SingleActorLinkProperties (SAL)
-
-Attributierte Verknüpfungstabelle der m:n Beziehung zwischen TOC und SA
-
-## Klasse SingleLayer (SL)
+### Klasse SingleLayer (SL)
 
 Einzelebene, welche die Daten aus 
 * einer Postgres-Tabelle mit oder ohne Geometrie
@@ -53,56 +102,48 @@ Einzelebene, welche die Daten aus
 * ...
 bezieht.
 
-**Attributbeschreibungen PostgresDS:**
+#### Attributbeschreibung
 
-|Name|Typ|Z|Beschreibung|
-|---|---|---|---|
-|currentVersion|Integer|Ja|Versionsidentifizierende Zahl für die current Version.|
+SL hat keine weiteren eigene Attribute.
 
-Bemerkungen:
-* currentVersion: Steht diese auf beispielsweise 4, werden die folgenden Versions-Suffixe abgeleitet: 
-    * current = *_v4
-    * previous = *_v3
-    * next = *_v5
-
-## Klasse SingleLayerLinkProperties (SLL)
+### Klasse PropertiesInFacade
 
 Attributierte Verknüpfungstabelle der m:n Beziehung zwischen FL und SL
 
-## Klasse ProductList (PL)
+#### Attributbeschreibung
 
-Sortierte Zusammenstellung aus SingleActor-Instanzen.
+|Name|Typ|Z|Beschreibung|
+|---|---|---|---|
+|sort|int|j|Sortierindex der Ebene innerhalb der ProductList.|
+|transparency|int|j|Transparenz der Ebene in Prozent. Default: 0 (nicht transparent).|
 
-Beispiele: 
-* Sortierte Liste von Einzeldatensatzdarstellungen (=DataSet), die gemeinsam als eine WMS „Gruppenebene“ dargestellt wird.
-* Sortierte Liste mehrerer TOC's als Inhalt einer Karte (=Map).
+#### Konstraints
 
-## Klasse TableOfContents (TOC)
+Maximal ein Objekt mit gleichen FK's zu FL und SL
 
-Ist ein "Konfigurations-Baustein", welcher via Layergruppe und Map mehrfach genutzt werden kann. Der Inhalt einer DSL
-muss einen engen thematischen Kontext haben (Im Gegensatz zur Map).
+## Klasse ProperitesInList
 
-**Unique-Bedingung:** Feld "name" ist eindeutig
+Attributierte Verknüpfungstabelle der m:n Beziehung zwischen PL und SA
 
-# Beispielkonfigurationen und resultierende Einträge in PL - TOC - SA:
+### Attributbeschreibung
 
-* Einzel publiziertes DS: Kein Eintrag in TOC
-* Einzel publizierter FL: Kein Eintrag in TOC
-* LL mit FL und DS: Ein Eintrag in TOC. Je ein Eintrag fuer FL und DS in der SAL   
-* Vordergrund-Karte (Map) mit LL1 und FL2: 
-  * Je ein Eintrag in TOC fuer LL1 und FL2.
-  * FL2 hat einen, LL1 mehrere Eintraege in der TOC.
-* Hintergrund-Karte (Map) mit FL3 und FL4.
-  * Je ein Eintrag in TOC fuer FL3 und FL4.
-  * FL3 und FL4 haben je einen Eintrag in der TOC.
+|Name|Typ|Z|Beschreibung|
+|---|---|---|---|
+|sort|int|j|Sortierindex der Ebene innerhalb der ProductList.|
+|transparency|int|j|Transparenz der Ebene in Prozent. Default: 0 (nicht transparent).|
+|visible|boolean|j|Ist die Ebene in der ProductList per default sichtbar oder nicht? Default: Ja.|
+
+### Konstraints
+
+Maximal ein Objekt mit gleichen FK's zu PL und SA
+
+## Beispielkonfigurationen und resultierende Einträge in PL - SAL - SA:
+
+* Einzel publiziertes DS: Keine Beziehung zu einem PL
+* Einzel publizierter FL: Keine Beziehung zu einem PL
+* LL mit FL und DS: Je ein Eintrag fuer FL und DS in der SAL   
   
-# Fragen - Todos
+## Fragen - Todos
 
 * Wie die meist zutreffende Komposition LayerList - SingleLayer abbilden? Bei Komposition können viele Informationen von 
 "Mammi" vererbt werden, ohne dass diese nochmals erfasst werden müssen.
-  
-  
-$td Ergänzung des Modelles mit den Aspekten "Metainformationen" und INTERLIS-Modell. Fragen:
-* Wie Dataset - Datasetview abbilden? Was ist das Mengengerüst für mehrere Datasetview pro Dataset --> Config-DB abfragen
-* Ist der Mismatch zwischen Modell und flacher Datenabgabe zu gross? --> Auch hier versuchen, das Mengengerüst abzuschätzen. In wievielen Fällen tut es weh?
-* Haken an der jetzigen Modellierung: Redundanz in der Beschreibung der Attribute!

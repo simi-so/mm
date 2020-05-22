@@ -4,20 +4,38 @@ class "SingleLayer (SL)" as sl << package Core >>
 package data {
 
 abstract class "DataSetView (DSV)" as dsv
-class "RasterView (RV)" as rv
-class "TableView (TV)" as tv
-
 abstract class "DataSet (DS)" as ds
+
+package tabular {
+class "TableView (TV)" as tv
 class "TableDS" as tds
+class "PostgresDB" as pdb
+class "TableField" as tf
+class "ViewField" as vf
+class "ModelSchema" as ms
+
+sl "1" -right- "0..1" dsv : "     "
+
+tv "*" --* "1" tds
+
+
+tds "*" --* "1" ms
+tds "1" *-- "0..*" tf
+
+tv "1" -- "1..n" vf
+vf "1..n" -- "1" tf
+
+ms "1..*" --* "1" pdb
+}
+
+package "raster"{
+class "RasterView (RV)" as rv
 class "RasterDS" as rds
 
-class "PostgresDB" as pdb
+rv "1-n" -- "1" rds
+}
 
-class "Attribute" as attr
 
-class "AttributeList" as al
-
-class "PostgresSchema" as pgs
 }
 
 dsv <|-- rv
@@ -25,17 +43,4 @@ dsv <|-- tv
 
 ds <|-- rds
 ds <|-- tds
-
-sl "1" *-right- "1..3" dsv
-
-tv "*" -- "1" tds
-rv "*" -- "1" rds
-
-tds "*" --* "1" pgs
-tds "1" *-- "0..*" attr
-
-tv "1" -- "1..n" al
-al "1..n" -- "1" attr
-
-pgs "1..*" --* "1" pdb
 @enduml

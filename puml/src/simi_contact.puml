@@ -2,13 +2,11 @@
 class "SingleLayer (SL)" as sl << package Core >>
 
 package Contact {
-
 	class "ContactRole" as cr
     class "DataContact" as dc
     class "Contact" as con
     class "Person" as pers
     class "Organisation" as org
-
 }
 
 sl "1" -up- "1..n" dc

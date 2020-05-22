@@ -1,20 +1,25 @@
 @startuml
-[Core] as core
+package Metamodel {
+  [Core] as core
 
-[Bouncer] as bouncer
-[CCC] as ccc
-[Contact] as con
-[Data] as data
+  [Bouncer] as bouncer
+  [CCC] as ccc
+  [Contact] as con
+  [Data] as data
 
-[Dependency] as dep
-[Flow] as flow
-[IAM] as iam
-[Print] as print
+  [Dependency] as dep
+  [Flow] as flow
+  [IAM] as iam
+  [Print] as print
+
+  [Featureinfo] as fi
+}
 
 bouncer --> core
 ccc --> core
 con --> core
 data --> core
+fi --> core
 
 dep -up-> core
 flow -up-> core

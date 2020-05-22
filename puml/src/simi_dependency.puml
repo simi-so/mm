@@ -1,22 +1,9 @@
 @startuml
-class "SingleActor (SA)" as sa << package Core >>
+class "DataProduct (DP)" as dp << package Core >>
 
-package Contact {
-
-	class "ContactRole" as cr
-    class "DataContact" as dc
-    class "Contact" as con
-    class "Person" as pers
-    class "Organisation" as org
-
+package Dependency {
+  class "Component" as comp
 }
 
-sa "1" -up- "1..n" dc
-cr "1 " -right- "1..n" dc
-dc "1..n" -- "1" con
-
-con <|-- pers
-con <|-- org
-
-pers "1..n" -right- "  1" org
+comp "*" -- "1..n" dp
 @enduml

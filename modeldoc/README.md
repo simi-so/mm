@@ -17,6 +17,7 @@ Schemaänderungen etc. [[Link]](flow.md)
 welcher den Zugriff auf eine Ressource (Report, ...) einschränkt. [[Link]](bouncer.md)
 * **Print** Modelliert die Metainformationen für das Erzeugen von Karten-PDF's [[Link]](print.md)
 * **Dependency** Liste der Komponenten, welche von Kern-Artefakten der GDI abhängig sind [[Link]](dependency.md)
+* **Featureinfo** Erweitert die möglichen Quellen einer Featureinfo-Abfrage [[Link]](featureinfo.md)  
 
 ## Erläuterungen zur Kapitelstruktur innerhalb der Teilmodelle
 
@@ -40,9 +41,21 @@ sinnvoll ist.
 * **Z** Ist das Attribut **z**wingend erforderlich? (j,n)
 * **Beschreibung** Erläuterungen zum Attribut
 
+Die Attributtabellen sind sortiert gemäss:
+1. Zwingende alphabetisch
+2. Optionale alphabetisch
+
 ```markdown
 |Name|Typ|Z|Beschreibung|
 ```
+
+#### Stringlängen anschaulich
+
+|Länge|Beispiel|
+|---|---|
+|String(100)|Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut l|
+|String(200)|Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores |
+|String(1000)|Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu f|
 
 # Modellierungsfragen
 
@@ -68,21 +81,14 @@ sinnvoll ist.
 |-|Antwort...|-|
 |core.DataProduct.identifier|Namenskonvention einführen? ch.so.xy.[Thema].(edit.)[Layername](_data). Thema entspricht Modellname ohne Version.|Stefan|
 |-|Antwort...|-|
-
-```
-|Betrifft|Frage|Wer|
+|core.DataProduct.inWGC|Wie sind geschützte Edit-Ebenen im WMS enthalten? Diese sind aus Sicht public überflüssig und störend.|Oliver|
 |-|Antwort...|-|
-```
-
-```
-# [Name des Teilmodelles] --Erläuterungen zum ganzen Teilmodell
-## Modell-Konstraints -- Falls zutreffend
-## Klasse [Klassenname] -- Erläuterungen zu einer Klasse des Teilmodelles
-### Attributbeschreibung -- Tabellarische Beschreibung der Attribute
-### Konstraints -- Falls zutreffend
-
-|Name|Typ|Z|Beschreibung|
-```
+|core|Automatische Ableitung des TOC-Namen für SingleActors in Gruppen. TOC-Name = [SingleActor.Title] ([ProductList.Title])|Andrea|
+|-|Antwort...|-|
+|core.Map|Hintergrundkarten bestehen heute doppelt im AGDI (für SO-Locator) und als "Feeder-Projekt" für den WMTS. Kann dies einfach verhindert werden?|Andi|
+|-|Antwort...|-|
+|SL - DSV|In Ruhe reflektieren, ob ein Teil der Module besser auf DSV wie auf SL verknüpft werden sollen (u.a: Versionierung)|Oliver|
+|-|Antwort...|-|
 
 
 

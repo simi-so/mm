@@ -8,7 +8,7 @@ Beispiele für Komponenten:
 * BauGK (extern)
 * ArtPlus (extern)
 
-Beispiele für Artefakte:
+Beispiele für Datenstrukturen:
 * SingleLayer: Beispielsweise die Abhängigkeit auf das gegenwärtige Schema.
 * Map: Abhängigkeit auf den Identifier der Map aufgrund Nutzung der URL-Schnittstelle zum WGC 
 

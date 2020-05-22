@@ -5,133 +5,179 @@
 Stellt die Klassen des Datenkonfigurationsteils dar
 * Tabellarische Daten aus Postgres/PostGIS mit und ohne Geometrie
 * Rasterdaten aus einem File / einem Katalog
+* Rasterlayer aus einem externen WMS
 
-## Attribut
+## Abstrakte Basisklassen
 
-Umfasst die Eigenschaften eines Attributs einer PostgresDS. 
+### Beziehung SingleLayer - DataSetView
 
-Bemerkungen:
-* Die Namen der Attribute werden mittels Katalogabfrage aus Postgres gelesen.
-* Zwei PostgresDS können auf dasselbe Attribut verweisen. Da dies aber nicht häufig vorkommt, wird auf eine 
-Normalisierung verzichtet. Der Vorteil des einfachen Modelles überwiegt den Nachteil der punktuellen Doppelerfassung
-von Beispielsweise des Feldes "description". 
+Die 1 : 0..1 Beziehung existiert im Datenmodell bewusst. Motivationen:
+* Schlanke "Schnittstelle" zwischen den Teilmodellen Core und Data
+* Technisch: Möglichkeit, die Vererbungsstrategien für Dataproduct und Kinder in Core anders zu wählen wie für DSV und Kinder in Data
+* "Poor-Man-Versioning": Es besteht die Möglichkeit, temporär mehrere DSV mit oder ohne verdoppelten DS zu halten. Beispielablauf:
+    * Kopie des sich ändernden DS mit seinen DSV's erstellen (Zeigen beispielsweise auf neue Modellversion)
+    * Rollout 1: Original-DSV's haben weiterhin die Referenz auf den SingleLayer --> Diese werden deployt, und nicht die veränderten Kopien
+    * Änderungen auf den Kopien sind fertiggestellt --> Kopien erhalten die Referenz auf die entsprechenden SingleLayer, und sind damit für den Rollout "scharf".
+    * Rollout 2: Kopien werden deployt
+    
+Je nach Risikoeinschätzung werden vor oder nach dem Rollout 2 die Originale gelöscht. Solange die Originale noch vorhanden sind, 
+ist ein relativ einfaches "rollback" zu machen.
 
-**Attributbeschreibungen:**
+### Klasse DataSet
+
+Bei Vektor- oder tabellarischen Daten entspricht ein Dataset-Eintrag einer (Geo-) Tabelle. 
+Bei Rasterdaten entspricht er einem Rasterlayer (Es werden keine nicht georeferenzierten Bilder erfasst).
+
+#### Attributbeschreibung
+
+|Name|Typ|Z|Beschreibung|
+|---|---|---|---|
+|remarks|String|n|Interne Bemerkungen zum DS.|
+
+### Klasse DataSetView
+
+Direkt aus einem Dataset abgeleitetes Produkt, welches Eigenschaften 
+(Darstellung / Attribute) eines Dataset auf den entsprechenden Einsatzzweck anpasst.
+
+Keine Rendering-Information hat ein DSV vom Typ "externe WMS Ebene". Bei internen Raster- und Tabellarischen
+Daten ist das Styling als QML optional enthalten.
+
+#### Attributbeschreibung
+
+|Name|Typ|Z|Beschreibung|
+|---|---|---|---|
+|name|String(100)|n|Interne Bezeichnung der DataSetView, um diese von weiteren DSV's des gleichen DS unterscheiden zu können.|
+|remarks|String|n|Interne Bemerkungen zur DSV.|
+|styleServer|byte[]|n|QML-Datei, welche das Styling der Ebene in QGIS-Server bestimmt.|
+|styleClient|byte[]|n|QML-Datei, welche das Styling der Ebene in QGIS-Desktop bestimmt. Falls null und style_server <> null wird style_server verwendet.|
+
+## Klassen in Teilmodell "tabular"
+
+### Klasse TableView
+
+Aus einer Datenbank-Tabelle oder -View abgeleitete "Soft View" mit Filtermöglichkeit sowohl auf die angebotenen
+Spalten (via AttributeList) wie auch auf die angebotenen Zeilen (mittels Where-Clause).
+
+#### Attributbeschreibung
+
+|Name|Typ|Z|Beschreibung|
+|---|---|---|---|
+|fiSource|enum|j|wms oder query oder module. $td|
+|whereClause|String(200)|n|Where-Clause zur Einschränkung der Anzahl Zeilen in der TableView.|
+|geomFieldName|String(100)|n|Bei mehreren Geometriespalten: Name der zu verwendenden Geometrie der TableView.|
+
+### Klasse ViewField
+
+Sortierte Liste der Attribute mit Alias einer TableView.
+
+#### Attributbeschreibung
+
+|Name|Typ|Z|Beschreibung|
+|---|---|---|---|
+|sort|int|j|Sortierung in WMS Featureinfo und WGC.|
+|alias|String(100)|n|Sprechende Bezeichnung des Attributes in WMS und WGC Featureinfo.|
+|wmsFiFormat|String(100)|n|Python Formattierungs-String, welcher die Formatierung des Attributes für WMS GetFeatureInfo steuert.|
+|wgcDisplayProps4Json|Json|n|Definiert Alias, Reihenfolge, Wertformatierung für die Properties eines Json-Feldes.| 
+
+#### Bemerkungen
+
+* wmsFiFormat: Darf nur gesetzt sein, wenn TableView.wgcDisplayTemplate leer ist (Anwendung mit Default-Template).
+* wgcDisplayProps4Json: Darf nur gesetzt sein, wenn TableView.wgcDisplayTemplate leer ist,
+ und es sich um ein json-Feld handelt.
+ 
+### Klasse TableDS
+
+Datenbank-Tabelle oder -View.
+
+#### Attributbeschreibung
+
+|Name|Typ|Z|Beschreibung|
+|---|---|---|---|
+|tableName|String(100)|j|Name der Tabelle oder View in der Datenbank|
+|idFieldName|String(100)|j|Name des Attributes, mit welchem die Objekte der Tabelle eindeutig identifiziert werden.|
+|rawDownload|boolean|j|Gibt an, ob das TableDS in der Form von AtOS, DataService, WFS bezogen werden kann. Default: Ja|
+|catSyncStamp|DateTime|j|Zeitpuntk des letzten Abgleiches mit dem effektiven Schema der Geodatenbank.|
+|geomFieldName|String(100)|n|Name des Geometrieattributes. Null, wenn die Tabelle keine oder mehrere Geometrien umfasst.|
+
+### Klasse TableField
+
+Umfasst die Eigenschaften eines Attributs einer PostgresDS. Die Geometriespalten werden nicht beschrieben.
+
+#### Attributbeschreibung
 
 |Name|Typ|Z|Beschreibung|
 |---|---|---|---|
 |name|String(100)|j|Name des Attributes in Postgres. Maximallänge in Postgres scheint 64 zu sein, darum String(100)|
-|nameInShape|String(7)|n|Optional von Fachamt definierbarer Name für den Shapefileexport|
-|description|String(100)|n|Beschreibung (Metadaten) zum Attribut. Wird initial aus INTERLIS-Modell befüllt|
-|fiAlias|String(100)|n|Sprechende Bezeichnung des Attributes in WMS und WGC Featureinfo|
-|fiSort|Integer|n|Sortierung der Attribute im WMS und WGC FeatureInfo|
+|typeName|String(100)|j|Name des Datentypes des Attributes.|
 |catSynced|boolean|j|Gibt an, ob das Attribut bei der letzten Katalogabfrage in der Datenbank vorhanden war.|
-|catSyncStamp|DateTime|j|Gibt an, wann das letzte Mal mit dem Katalog abgeglichen wurde.|
-|wmsFiFormat|String(50)|n|Python Formattierungs-String, welcher die Formatierung des Attributes für WMS GetFeatureInfo steuert.|
-|wgcDisplayProps4Json|Json|n|Definiert Alias, Reihenfolge, Wertformatierung für die Properties eines Json-Feldes.| 
+|nameInShape|String(7)|n|Optional von Fachamt definierbarer Name für den Shapefileexport.|
+|description|String|n|Beschreibung (Metadaten) zum Attribut. Wird initial aus INTERLIS-Modell befüllt|
 
-**Regeln:**
-* name: Ist innerhalb eines PostgresDS unique.
-* wmsFiFormat: Darf nur gesetzt sein, wenn PostgresDS.wgcDisplayTemplate leer ist (Anwendung mit Default-Template).
-* wgcDisplayProps4Json: Darf nur gesetzt sein, wenn PostgresDS.wgcDisplayTemplate leer ist,
- und es sich um ein json-Feld handelt.
-* fiSort und fiAlias: 
-    * Mandatory, falls SingleLayer für WMS oder WMS und WGC freigeschaltet ist.
-    * Inaktiv, falls PostgresDS.wgcDisplayTemplate gesetzt ist.
+#### Konstraints
 
-## Dataset
+* name: Ist innerhalb eines TableDS unique.
+    
+#### Bemerkungen:
+* Die Namen der Attribute werden mittels Katalogabfrage aus Postgres gelesen.
 
-Bei Vektor- oder tabellarischen Daten entspricht ein Dataset-Eintrag einer (Geo-)Tabelle. 
-Bei Rasterdaten entspricht er einem Rasterlayer (Es werden keine nicht georeferenzierten Bilder erfasst).
+### Klasse ModelSchema
 
-### Beschreibung der Subklassen
-* **PostgresDS:** Definiert basierend auf einer Postgres-Tabelle, welche Tabellenzeilen und -spalten gelesen.
- (und geschrieben) werden können. Die sprechenden Namen der Spalten (=Attribute) sind in der Klasse "Attributes" definiert.
-* **VectorDS:** Repräsentiert eine PostGIS-Ebene. Erweitert PostgresDS mit den Darstellungseigenschaften.
-* **RasterDS:** Repräsentiert eine dateibasierte Raster-Ebene. 
+Schema, welches mittels INTERLIS-Modell und ili2pg erzeugt wurde. Das Metamodell geht einer Beziehung 
+Schema 1 : 0..1 Modell aus. Es kann also maximal ein "Gebrauchsmodell" pro Schema hinterlegt werden.
 
-**Attributbeschreibungen PostgresDS:**
+#### Attributbeschreibung
 
 |Name|Typ|Z|Beschreibung|
 |---|---|---|---|
-|wgcDisplayTemplate|String|Jinja-Template, welches ein Custom-Rendering für das Attribut definiert.|
+|schemaName|String(100)|j|Name des Schemas|
+|modelName|String(100)|n|Name des INTERLIS-Modelles, mit welchem das Schema angelegt wurde|
 
-### Versionierung der DataSets
-
-Als Ablösung des improvisierten Tag "Bearbeitung" und zwecks Entschärfung des "Point of no return" bezüglich des 
-Layer-Rollouts wird eine saubere Versionierung der DataSets eingeführt.
-
-Dabei können einem SingleLayer maximal drei Datasets zugewiesen werden:
-* **Previous:** Enthält die vorhergehende, nicht mehr gültige Konfiguration. Nutzen: Auf der Integration kann "Previous" 
-kurzfristig reaktiviert werden, sofern "Current" stark verbockt ist. Sprich alle Aenderungen verwerfen und basierend
-auf "Previous" neu starten.
-* **Current:** Enthält die aktuell gültige Konfiguration.
-* **Next:** Enthält die Entwurfsversion der neuen Konfiguration, welche auf der Integrationsumgebung aktuell 
-erarbeitet wird.
-
-Das Verhalten des zukünftigen "Magic-Button" wird damit von der Umgebung abhängen:
-* In der Produktivumgbung wird immer "Current" verwendet
-* In der Integrationsumgebung wird "Next" verwendet. Falls kein "Next" vorhanden ist, wird "Current" deployt
-
-Im GUI des SingleLayer steht entsprechende Funktionalität zur Verfügung:
-* Entwurfsversion anlegen
-    * Stellt sicher, dass noch kein "Next" existiert. Falls existierend --> Abbruch
-    * Erstellt ein neues "Next" und kopiert alle Eigenschaften des Current in das neue "Next"
-* Entwurfsversion löschen
-    * Löscht "Next", sofern dieses vorhanden ist
-* Entwurfsversion publizieren
-    * Löscht "Previous", sofern dieses vorhanden ist
-    * Rename "Current" auf "Previous"
-    * Rename "Next" auf "Current"
-* "Previous" wieder herstellen
-    * Löscht "Next", sofern vorhanden
-    * Rename "Current" auf "Next"
-    * Rename "Previous" auf "Current"
-
-**Unique-Bedingung:** Mittels Unique-Key wird sichergestellt, dass für einen SingleLayer eine DataSet in beispielsweise der Version "next"
-maximal einmal vorkommt.
-
-## PostgresDS
-
-Siehe Dataset
-
-## PostgresSchema
-
-Enthält die Eigenschaften eines Postgres-Schema. 
-
-Eingeführt:
-* Um der hohen Wichtigkeit des Schema als "Nachführungseinheit" Rechnung zu tragen.
-* Den 1:1 Link zu den INTERLIS-Modellen herzustellen
-
-## PostgresDB
+### Klasse PostgresDB
 
 Postgres-Datenbank, in welcher das Schema (PostgresSchema) enthalten ist. Universell adressiert mittels
 * Datenbankname
 * Hostname des PG-Clusters
 * Port des PG-Clusters
 
-## RasterDS
+#### Attributbeschreibung
 
-Siehe Dataset
+|Name|Typ|Z|Beschreibung|
+|---|---|---|---|
+|dbName|String(100)|j|Name der Datenbank auf dem Cluster|
+|clusterHost|String(100)|j|Hostname des Postgres-Cluster|
+|clusterPort|int|j|Port des Cluster|
 
-## VectorDS
+## Klassen in Teilmodell "raster"
 
-Siehe Dataset
+### Klasse RasterView
 
-# Data (Mit Unterscheidung DS - DSV)
+Enthält die Darstellungsdefinition für ein Raster-DataSet
 
-Diese Variante der Datenmodellierung wird zwischen dem DataSet und der DataSetView unterschieden. Es resultiert ein
-komplexeres, aber mit weniger Redundanzen behaftetes Datenmodell. Entsprechend fallen auch Konsistenz-Regeln weg, welche beim
-(vermeintlich?) einfachen Modell definiert werden müssen.
+#### Attributbeschreibung
 
-Bauchgefühl: Umsetzung dieses Modelles (Mit Unterscheidung DS - DSV)
+Keine eigenen Attribute
 
-![Data_DSV](../puml_output/simi_data_dsv.png)
+### Klasse RasterDS
+
+Enthält die Informationen zu den Rohdaten eines Raster-Datensatzes (Ablagepfad etc.). 
+Ausgestaltung abhängig von den Resultaten der Abklärung zur "besten" Raster-Datenhaltung für das AGI.
+
+#### Attributbeschreibung
+
+|Name|Typ|Z|Beschreibung|
+|---|---|---|---|
+|path|String(200)|j|Filepfad zur verwendeten Rasterebene.|
+
+# Datenumfang für verschiedene Modellarten
+
+Im Minimalszenario weiss SIMI "viel" vom Pub-Modell und -Schema eines Themas, und sehr wenig vom Edit-Modell und -Schema.
+Minimalanforderungen bezüglich dem Edit-Modell und Schema:
+* Ausgabe, welche Zieltabellen von der Änderung einer Quelltabelle potentielle betroffen sind (Teilmodell Flow "downstream").
+* Für die Datenbereitstellung idenfifizieren, welches Edit-Modell zu einem Pub TableDS "gehört" (Teilmodell Flow "upstream").
 
 ## Eigenschaften Matrix
 
-Zwecks Ausdetaillierung der sinnvollen Abbildung der Vererbung bildet die Matrix-Tabelle die Eigenschaften von 
-tabellarischen DS und DSV in unterschiedlichen "Settings" ab:
+Die Matrix-Tabelle bildet die Eigenschaften von tabellarischen DS und DSV bei unterschiedlichen Modellarten ab:
 
 |Setting ▶|DB ausserhalb GDI|Edit DB|Stageing|Pub DB|
 |---|---|---|---|---|
@@ -145,8 +191,8 @@ tabellarischen DS und DSV in unterschiedlichen "Settings" ab:
 ### Bemerkungen
 * \*1: Ist wahrscheinlich notwendig für den Datenbezug
 * \*2: Fraglich, ob diese in der Meta-DB interessieren? Muss dokumentiert werden, dass diese Teil des GRETL-Jobs xy sind?
-* \*3: Eher ja, damit wir unsere externen Abhängigkeiten "im Griff" haben. Betriff auch den Bezug externer Services!!.
-* \*4: Eher ja, damit wir ein vollständiges Bild unserer Daten haben. Nicht beschrieben werden von ili2db generierte Metatabellen, Aufzählungstyp-Tabellen, ...
+* \*3: Eher ja, damit wir unsere externen Abhängigkeiten "im Griff" haben.
+* \*4: Eher ja, damit wir ein vollständiges Bild unserer Daten haben. Die an einem Job teilnehmenden TableDS sind sicher beschrieben. Nicht beschrieben werden von ili2db generierte Metatabellen, Aufzählungstyp-Tabellen, ...
 * \*5, \*6, \*6: Beschrieben, falls die entsprechende Tabelle im API / WGC publiziert ist.
  
  
