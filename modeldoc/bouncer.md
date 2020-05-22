@@ -6,7 +6,7 @@ an den Bouncer in den HTTP-GET Aufruf der mittels Bouncer geschützten Ressource
 Die URL für den Aufruf eines Background-Service via Bouncer setzt sich wie folgend beschrieben zusammen.
 
 http://\[Bouncer BaseURL\]/\[ProtectedService\]/\[Ressource\]\[...\]. \[...\] sind beliebige weitere URL-Teile, 
-die einfach hinten angehängt werden.
+die einfach hinten angehängt werden. Bis zum vorgelagerten Gateway resp. SES natürlich https://.
 
 Beispiel: http://geo.so.ch/bouncer/dox42/naturreservate\[...\] 
 

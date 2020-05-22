@@ -2,22 +2,20 @@
 
 ![Übersicht der Teilmodelle](../puml_output/simi_overview.png)
 
-* **Core** Enthält die Kernklassen für die Gruppierung und Konfiguration 
-von Datenprodukten (Datasets, Productsets, ...). [[Link]](core.md)
-* **Data** Enthält die Klassen für die Beschreibung der von der GDI genutzten 
-Datenquellen (GIS-Tabellen, Raster, ...). [[Link]](data.md)
-* **IAM** Klassen zur Konfiguration des Identity und 
-Access Management (Benutzer, Gruppen, Rollen, ...). [[Link]](iam.md)
-* **Contact** Teilmodell zur Definition der Kontaktinformationen 
-bezüglich der genutzten Daten. [[Link]](contact.md)
-* **Flow** Modelliert die Informationsflüsse zwecks Übersicht der notwendigen Anpassungen bei
-Schemaänderungen etc. [[Link]](flow.md)
-* **CCC** Modelliert die einzelnen CCC-Integrationen (CCC-Client). [[Link]](ccc.md)
-* **Bouncer** Klassen zur Konfiguration des Bouncer-Proxy, 
-welcher den Zugriff auf eine Ressource (Report, ...) einschränkt. [[Link]](bouncer.md)
-* **Print** Modelliert die Metainformationen für das Erzeugen von Karten-PDF's. [[Link]](print.md)
-* **Dependency** Liste der Komponenten, welche von Kern-Artefakten der GDI abhängig sind. [[Link]](dependency.md)
-* **Featureinfo** Erweitert die möglichen Quellen einer Featureinfo-Abfrage. [[Link]](featureinfo.md)  
+* **Core [[Link]](core.md):** Enthält die Kernklassen für die Gruppierung und Konfiguration 
+von Datenprodukten (Datasets, Productsets, ...).
+* **Data [[Link]](data.md):** Enthält die Klassen für die Beschreibung der von der GDI genutzten 
+Datenquellen (GIS-Tabellen, Raster, ...).
+* **IAM: [[Link]](iam.md)** Klassen zur Konfiguration des Identity und 
+Access Management (Benutzer, Gruppen, Rollen, ...).
+* **Contact: [[Link]](contact.md)** Teilmodell zur Definition der Kontaktinformationen 
+bezüglich der genutzten Daten.
+* **Flow: [[Link]](flow.md)** Dokumentiert die Datenflüsse der GRETL-Jobs.
+* **CCC: [[Link]](ccc.md)** Modelliert die einzelnen CCC-Integrationen (CCC-Client).
+* **Bouncer [[Link]](bouncer.md):** Klassen zur Konfiguration des Bouncer-Proxy, welcher den Zugriff auf eine Ressource einschränkt.
+* **Print: [[Link]](print.md)** Modelliert die Metainformationen für das Erzeugen von Karten-PDF's.
+* **Dependency: [[Link]](dependency.md)** Doku der Komponenten, welche von Datenstrukturen der GDI abhängig sind.
+* **Featureinfo: [[Link]](featureinfo.md)** Konfig von Featureinfo. Dieses erweitert das QGIS-Server Featureinfo mit templated HTML-Output und Datenquellen.
 
 ## Konstraints
 

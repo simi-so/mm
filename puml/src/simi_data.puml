@@ -20,7 +20,7 @@ class "ModelSchema" as ms
 tds <|-- pt
 tds <|-- et
 
-sl "0..1" -right- "0..1" dsv : "     "
+sl "0..1" -right- "0..1" dsv : "               "
 
 tv "*" --* "1" pt
 

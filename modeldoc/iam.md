@@ -21,7 +21,7 @@ Steuert, ob eine Rolle gegenüber einer Ressource gar keine, nur lesende, oder l
 |Name|Typ|Z|Beschreibung|
 |---|---|---|---|
 |level|enum|j|"read" = 1, "read_write" = 2. Sortierung muss in Datenbank entweder als int's oder als "1_read" etc. vorkommen, damit einfache Permission-Queries geschrieben werden können. SQL: `max(level) |
-|priority|int|j|$td config.json anschauen. Priority ist hoffentlich auch in Config-DB obsolet.|
+|priority|int|j|$td config.json anschauen. Priority wird hoffentlich durch Frühlingsrelease obsolet.|
 
 ### Konstraints
 
@@ -73,7 +73,7 @@ Es bestehen funktionale Einheiten der GDI mit eigenem (redundantem) Benutzerverz
 
 ### Konstraints
 
-UK über name, vorname und FK auf Team
+UK über name, vorname und FK auf Klasse Team.
 
 ## Klasse Team
 
@@ -88,5 +88,5 @@ Organisationseinheit des User. AFU, ARP, ...
 
 ### Konstraints
 
-UK auf name
+UK auf name.
 
