@@ -6,16 +6,16 @@
 von Datenprodukten (Datasets, Productsets, ...).
 * **Data [[Link]](data.md):** Enthält die Klassen für die Beschreibung der von der GDI genutzten 
 Datenquellen (GIS-Tabellen, Raster, ...).
-* **IAM: [[Link]](iam.md)** Klassen zur Konfiguration des Identity und 
+* **IAM [[Link]](iam.md):** Klassen zur Konfiguration des Identity und 
 Access Management (Benutzer, Gruppen, Rollen, ...).
-* **Contact: [[Link]](contact.md)** Teilmodell zur Definition der Kontaktinformationen 
+* **Contact [[Link]](contact.md):** Teilmodell zur Definition der Kontaktinformationen 
 bezüglich der genutzten Daten.
-* **Flow: [[Link]](flow.md)** Dokumentiert die Datenflüsse der GRETL-Jobs.
-* **CCC: [[Link]](ccc.md)** Modelliert die einzelnen CCC-Integrationen (CCC-Client).
+* **Flow [[Link]](flow.md):** Dokumentiert die Datenflüsse der GRETL-Jobs.
+* **CCC [[Link]](ccc.md):** Modelliert die einzelnen CCC-Integrationen (CCC-Client).
 * **Bouncer [[Link]](bouncer.md):** Klassen zur Konfiguration des Bouncer-Proxy, welcher den Zugriff auf eine Ressource einschränkt.
-* **Print: [[Link]](print.md)** Modelliert die Metainformationen für das Erzeugen von Karten-PDF's.
-* **Dependency: [[Link]](dependency.md)** Doku der Komponenten, welche von Datenstrukturen der GDI abhängig sind.
-* **Featureinfo: [[Link]](featureinfo.md)** Konfig von Featureinfo. Dieses erweitert das QGIS-Server Featureinfo mit templated HTML-Output und Datenquellen.
+* **Print [[Link]](print.md):** Modelliert die Metainformationen für das Erzeugen von Karten-PDF's.
+* **Dependency [[Link]](dependency.md):** Doku der Komponenten, welche von Datenstrukturen der GDI abhängig sind.
+* **Featureinfo [[Link]](featureinfo.md):** Konfig von Featureinfo. Dieses erweitert das QGIS-Server Featureinfo mit templated HTML-Output und Datenquellen.
 
 ## Konstraints
 
