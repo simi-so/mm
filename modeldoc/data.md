@@ -275,7 +275,7 @@ Die Matrix-Tabelle bildet die Eigenschaften von tabellarischen DS und DSV bei un
 
 |id|name|model_name|schema_name|raw_url_pattern|raw_url_attributes|
 |---|---|---|---|---|---|
-|m1|Gewässerschutz (Edit)|PlanerischerGewaesserschutz_LV95_V1_1|afu_gewaesserschutz|https://geo.so.ch/api/rawdata/gws_edit| |
+|m1|Gewässerschutz (Edit)|PlanerischerGewaesser- schutz_LV95_V1_1|afu_gewaesserschutz|https://geo.so.ch/api/rawdata/gws_edit| |
 
 ### Klasse PostgresTable
 
@@ -298,7 +298,7 @@ Keine Einträge notwendig, da weder in API noch WGC enthalten.
 
 |id|name|model_name|schema_name|raw_url_pattern|raw_url_attributes|
 |---|---|---|---|---|---|
-|m1|Gewässerschutz|SO_AfU_Gewaesserschutz_Publikation_20200115|afu_gewaesserschutz_pub|https://geo.so.ch/api/rawdata/gws| |
+|m1|Gewässerschutz|SO_AfU_Gewaesserschutz_ Publikation_20200115|afu_gewaesserschutz_pub|https://geo.so.ch/api/rawdata/gws| |
 
 ### Klasse PostgresTable
 
@@ -314,8 +314,6 @@ Keine Einträge notwendig, da weder in API noch WGC enthalten.
 |v1|t1|true|||
 |v2|t2|false|Zone|typ = 'zone'|
 |v3|t2|false|Areal|typ = 'areal'|
-
-**Frage:** Aufgrund Viewnutzung "missing link" für die Abgabe eines Teilmodelles?
 
 ## Nutzungsplanung Edit
 
