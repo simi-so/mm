@@ -7,21 +7,44 @@ Stellt die Klassen des Datenkonfigurationsteils dar
 * Rasterdaten aus einem File / einem Katalog
 * Rasterlayer aus einem externen WMS
 
-## Abstrakte Basisklassen
+## Übergeordnete Klassen
 
-### Beziehung SingleLayer - DataSetView
+### Klasse DataTheme
 
-Die 1 : 0..1 Beziehung existiert im Datenmodell bewusst. Motivationen:
-* Schlanke "Schnittstelle" zwischen den Teilmodellen Core und Data.
-* Technisch: Möglichkeit, die Vererbungsstrategien für Dataproduct und Kinder in Core anders zu wählen wie für DSV und Kinder in Data.
-* "Poor-Man-Versioning": Es besteht die Möglichkeit, temporär mehrere DSV mit oder ohne verdoppelten DS zu halten. Beispielablauf:
-    * Kopie des sich ändernden DS mit seinen DSV's erstellen (Zeigen beispielsweise auf neue Modellversion).
-    * Rollout 1: Original-DSV's haben weiterhin die Referenz auf den SingleLayer --> Diese werden deployt, und nicht die veränderten Kopien.
-    * Änderungen auf den Kopien sind fertiggestellt --> Kopien erhalten die Referenz auf die entsprechenden SingleLayer, und sind damit für den Rollout "scharf".
-    * Rollout 2: Kopien werden deployt.
-    
-Je nach Risikoeinschätzung werden vor oder nach dem Rollout 2 die Originale gelöscht. Solange die Originale noch vorhanden sind, 
-ist ein relativ einfaches "rollback" zu machen.
+DataTheme ist der enge fachlich-thematische Kontext, über den sich die Struktur des Datenbezuges definiert.
+
+#### Attributbeschreibung
+
+|Name|Typ|Z|Beschreibung|
+|---|---|---|---|
+|name|String(100)|j|Sprechende Bezeichnung des Themas.|
+|remarks|String|n|Interne Bemerkungen zum DT.|
+
+#### Gebietseinteilung für Datenbezug
+
+Sofern das DataTheme über eine Gebietseinteilung verfügt, wird dies über die Beziehung DT - TableView und die 
+folgenden Attribute dokumentiert und gesteuert:
+
+|Name|Typ|Z|Beschreibung|
+|---|---|---|---|
+|part_url_attributes|String(200)|Json-Array der Attribute für die URL (Attribut part_url_pattern).|
+|part_url_pattern|String(200)|n|Pattern, welches die Download-URL eines Teilstückes des DS bestimmt.|
+|part_display_attributes|String(200)|Json-Array der Attribute für die Darstellung des Gebietes (Attribut part_display_pattern).|
+|part_display_pattern|String(200)|n|Pattern, welches den Display-String eines Teilstückes des DS bestimmt.|
+
+Beispiele für die Patterns (Java MessageFormat):
+* Vektordatensatz (AV):
+    * Foreign Key auf TableView: `agi_hoheitsgrenzen_pub.hoheitsgrenzen_gemeindegrenze [DEFAULT]`
+    * part_url_attributes: `["bfs_gemeindenummer"]`
+    * part_url_pattern: `https://geo.so.ch/api/rawdata/av/{0}`
+    * part_display_attributes: `["gemeindename"]`
+    * part_display_pattern: `AV-Daten der Gemeinde: {0}`
+* Oberflächenmodell (LIDAR):
+    * Foreign Key auf TableView: `agi_lidar_pub.lidarprodukte_lidarprodukt [DOM]`
+    * part_url_attributes: `["x_min","y_min"]`
+    * part_url_pattern: `https://geo.so.ch/api/rawdata/lidar_dom/{0}/{1}`
+    * part_display_attributes: `["x_min","y_min"]`
+    * part_display_pattern: `Kachel {0} / {1} (X Min / Y Min)`
 
 ### Klasse DataSet
 
@@ -58,6 +81,20 @@ Daten ist das Styling als QML optional enthalten.
 #### Konstraints
 
 UK auf den FK zum SingleLayer.
+
+### Beziehung SingleLayer - DataSetView
+
+Die 1 : 0..1 Beziehung existiert im Datenmodell bewusst. Motivationen:
+* Schlanke "Schnittstelle" zwischen den Teilmodellen Core und Data.
+* Technisch: Möglichkeit, die Vererbungsstrategien für Dataproduct und Kinder in Core anders zu wählen wie für DSV und Kinder in Data.
+* "Poor-Man-Versioning": Es besteht die Möglichkeit, temporär mehrere DSV mit oder ohne verdoppelten DS zu halten. Beispielablauf:
+    * Kopie des sich ändernden DS mit seinen DSV's erstellen (Zeigen beispielsweise auf neue Modellversion).
+    * Rollout 1: Original-DSV's haben weiterhin die Referenz auf den SingleLayer --> Diese werden deployt, und nicht die veränderten Kopien.
+    * Änderungen auf den Kopien sind fertiggestellt --> Kopien erhalten die Referenz auf die entsprechenden SingleLayer, und sind damit für den Rollout "scharf".
+    * Rollout 2: Kopien werden deployt.
+    
+Je nach Risikoeinschätzung werden vor oder nach dem Rollout 2 die Originale gelöscht. Solange die Originale noch vorhanden sind, 
+ist ein relativ einfaches "rollback" zu machen.
 
 ## Klassen in Teilmodell "tabular"
 

@@ -26,6 +26,7 @@ package Core {
   pl "1" -right- "1..n" pil : "      "
   pil "*" -right- "1" sa : "      "
 
+  map "*" -- map "0..1" : "foreground map - background map"
 
   fl "1" -- "1..n" pif : "      "
   pif "*" -up- "1" sl : "      "

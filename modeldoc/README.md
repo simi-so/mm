@@ -2,8 +2,7 @@
 
 ![Übersicht der Teilmodelle](../puml_output/simi_overview.png)
 
-* **Core [[Link]](core.md):** Enthält die Kernklassen für die Gruppierung und Konfiguration 
-von Datenprodukten (Datasets, Productsets, ...).
+* **Product [[Link]](product.md):** Enthält die Klassen für die Konfiguration der aus Data abgeleiteten Produkte. 
 * **Data [[Link]](data.md):** Enthält die Klassen für die Beschreibung der von der GDI genutzten 
 Datenquellen (GIS-Tabellen, Raster, ...).
 * **IAM [[Link]](iam.md):** Klassen zur Konfiguration des Identity und 
@@ -66,9 +65,9 @@ Die Attributtabellen sind sortiert gemäss:
 |data.PostgresSchema|Wann sind die verwendeten Parameter der Schemaerstellung mittels ili2pg Teil des Model-Repos?|Stefan|
 |-|Ist nicht nötig. Die Parameter werden in die ili2db Metatabellen im Schema selbst geschrieben.|-|
 |data.PostgresDB|Verwendung der Service-Definition verstehen. Host und Port als Attribute ok?|Michael|
-|-|Antwort...|-|
+|-|Nein, bis auf weiteres der Servicename, da keine Automatisierungen für jdbc bestehen. jdbc kann nicht via Servicename connecten.|-|
 |data und core|Transparenz-Regeln verstehen.|Michael|
-|-|Antwort...|-|
+|-|Facadelayer: Wenn in FL gesetzt: FL 0.5 * FL-Child 0.5 = 0.25 resultierend für FL-Child <br/> ProductList: Wenn gesetzt, wird der Wert des PL-Child überschrieben |-|
 |data|Externe WMS-Ebene wie einbinden? Vergleichen mit aktualisiertern Config-DB|Oliver|
 |-|Antwort...|-|
 |data|Wie die Raster in die GDI einbinden? Es gibt zu viele Möglichkeiten...|Stefan|
@@ -90,6 +89,8 @@ Die Attributtabellen sind sortiert gemäss:
 |core.Map|Hintergrundkarten bestehen heute doppelt im AGDI (für SO-Locator) und als "Feeder-Projekt" für den WMTS. Kann dies einfach verhindert werden?|Andi|
 |-|Antwort...|-|
 |SL - DSV|In Ruhe reflektieren, ob ein Teil der Module besser auf DSV / DS wie auf SL verknüpft werden sollen (u.a: Versionierung)|Oliver|
+|-|Antwort...|-|
+|data DataTheme|Braucht es eine Klasse DataTheme? Diese ist nötig, wenn DataSets wie Beispielsweise die LIDAR-Produkte gruppiert als ein Paket abgegeben werden sollen (Kachel.zip mit DOM, DTM, Höhenlinien, ...).|Oliver|
 |-|Antwort...|-|
 
 

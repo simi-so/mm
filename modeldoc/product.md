@@ -1,10 +1,12 @@
 # Core
 
+Bildet alle möglichen Arten von Kartenebenen und deren Beziehung untereinander ab.
+
 ![Core](../puml_output/simi_core.png)
 
 ## Klasse DataProduct (DP)
 
-Basisklasse aller Datenprodukte. Synonyme bei räumlichen Daten ist die Datenebene (der Layer).
+Basisklasse aller Datenprodukte. Synonyme bei räumlichen Daten ist die Kartenebene (der Layer).
 
 Beispiel tabellarische Daten: Wenn ein DataProduct genau eine Tabelle umfasst ist es ein Objekt
 der Subklasse SingleLayer, wenn es mehrere Tabellen umfasst ein Objekt der Subklasse Productset respektive FacadeLayer.
@@ -12,14 +14,14 @@ der Subklasse SingleLayer, wenn es mehrere Tabellen umfasst ein Objekt der Subkl
 Der Dateninhalt von externen Diensten wird nach Bedarf ebenfalls als DataProduct geführt.
 Beispiele:
 * WMS-Ebene eines Nachbarkantones, welcher in eine vorkonfigurierte Karte des Kantons Solothurn aufgenommen wird.
-* WMS-Ebene der Fachapplikation Altlast4Web welche in eine thematische Karte des SO!Map-Clients eingebunden werden soll.
+* WMS-Ebene der Fachapplikation Altlast4Web welche in eine thematische Karte des Web GIS Clients eingebunden werden soll.
 
 ### Attributbeschreibung
 
 |Name|Typ|Z|Beschreibung|
 |---|---|---|---|
 |identifier|String(100)|j|Eindeutiger hierarchischer Identifier des DataProduct (ch.so.fuu.bar).|
-|in WGC|boolean|j|Steuert, ob das Dataproduct im WebGIS Client publiziert ist. Default: Ja|
+|inWGC|boolean|j|Steuert, ob das Dataproduct im WebGIS Client publiziert ist. Default: Ja|
 |inWMS|boolean|j|Gibt an, ob die Ebene im WMS vorkommen soll. Default: Ja. Analoge Steuerung für DataService, WFS siehe data.PostgresDS.inDataService.|
 |keywords|String(200)|n|Stichworte für das DataProduct. Können auch thematische Überbegriffe sein.|
 |remarks|String|n|Interne Bemerkungen.|
@@ -37,7 +39,7 @@ Feld "identifier" ist GDI-weit eindeutig.
 Sortierte Liste von Einzellayern (=SingleActor), welche im Web GIS Client „explodiert“ dargestellt wird.
 
 Beispiele: 
-* Sortierte Liste von Einzeldatensatzdarstellungen (=DataSet), die gemeinsam als eine WMS „Gruppenebene“ dargestellt wird.
+* Sortierte Liste von Einzeldatensatzdarstellungen (=DataSet), die gemeinsam als Kinder eines WMS "Parent-Layer" dargestellt wirden.
 * Sortierte Liste von SA's für eine Map
 
 #### Attributbeschreibung
@@ -56,6 +58,9 @@ mit welcher in der Karte noch nicht vorhandene SA's einer LL beigefügt werden k
 |Name|Typ|Z|Beschreibung|
 |---|---|---|---|
 |background|boolean|j|Gibt an, ob es sich um eine Hintergrundkarte handelt oder nicht.|
+
+Bemerkung: Die Attribute inWGC und inWMS des Dataproduct sind für die Map immer "false". 
+
 
 ### Klasse LayerList (LL)
 

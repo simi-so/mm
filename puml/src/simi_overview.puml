@@ -1,6 +1,6 @@
 @startuml
 package Metamodel {
-  [Core] as core
+  [Product] as prod
 
   [Bouncer] as bouncer
   [CCC] as ccc
@@ -15,14 +15,14 @@ package Metamodel {
   [Featureinfo] as fi
 }
 
-bouncer --> core
-ccc --> core
-con --> core
-data --> core
-fi --> core
+bouncer --> prod
+ccc --> prod
+con --> prod
+data --> prod
+fi --> prod
 
-dep -up-> core
-flow -up-> core
-iam -up-> core
-print -up-> core
+dep -up-> prod
+flow -up-> prod
+iam -up-> prod
+print -up-> prod
 @enduml
