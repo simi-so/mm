@@ -1,4 +1,4 @@
-# Core
+# Product
 
 Bildet alle möglichen Arten von Kartenebenen und deren Beziehung untereinander ab.
 
@@ -6,7 +6,7 @@ Bildet alle möglichen Arten von Kartenebenen und deren Beziehung untereinander 
 
 ## Klasse DataProduct (DP)
 
-Basisklasse aller Datenprodukte. Synonyme bei räumlichen Daten ist die Kartenebene (der Layer).
+Basisklasse aller Datenprodukte.
 
 Beispiel tabellarische Daten: Wenn ein DataProduct genau eine Tabelle umfasst ist es ein Objekt
 der Subklasse SingleLayer, wenn es mehrere Tabellen umfasst ein Objekt der Subklasse Productset respektive FacadeLayer.
@@ -161,3 +161,85 @@ UK über die FK's.
 * Einzel publiziertes DS: Keine Beziehung zu einem PL
 * Einzel publizierter FL: Keine Beziehung zu einem PL
 * LL mit FL und DS: Je ein Eintrag fuer FL und DS in der SAL
+
+# Beispiele
+
+## Zusammenfassen von Geometrietypen in Facadelayer
+
+Beipielsweise in der Archäologie werden kleine Denkmäler als Punktgeometrie, grosse als Polygon geführt.
+
+### SingleLayer
+
+|id|identifier|in_wms|in_wgc|
+|---|---|---|---|
+|s1|ch.so.ada.denkmal.punkt|false|false|
+|s1|ch.so.ada.denkmal.polygon|false|false|
+
+### FacadeLayer
+
+|id|identifier|in_wms|in_wgc|
+|---|---|---|---|
+|f1|ch.so.ada.denkmal|true|true|
+
+### PropertiesInFacade
+
+|id_facadelayer|id_singlelayer|sort|
+|---|---|---|
+|f1|s1|10|
+|f1|s2|5|
+
+## Layergruppe (Productlist)
+
+Zusammenfassung von Haltestellen und Netz zu Layergruppe öV.
+
+### SingleActor
+
+|id|identifier|in_wms|in_wgc|
+|---|---|---|---|
+|s1|ch.so.avt.oev.haltestellen|true|true|
+|s2|ch.so.avt.oev.netz|false|false|
+
+### LayerList
+
+|id|identifier|in_wms|in_wgc|
+|---|---|---|---|
+|l1|ch.so.avt.oev|true|true|
+
+### PropertiesInList
+
+|id_productlist|id_singleactor|sort|
+|---|---|---|
+|l1|s1|10|
+|l1|s2|5|
+
+## Layergruppe mit externem WMS
+
+Gruppierung des KBS mit dem KBS-WMS von Geodienste.ch
+
+### SingleLayer
+
+|id|identifier|in_wms|in_wgc|
+|---|---|---|---|
+|s1|ch.so.afu.kbs|true|true|
+
+### ExtWmsLayer
+
+|id|identifier|wms_url|in_wgc|
+|---|---|---|---|
+|w1|ch.kkgeo.kbs|https://geodienste.ch/db/kataster_belasteter_standorte_v1_4_0/deu?SERVICE=WMS&REQUEST=GetMap&LAYERS=kbs|true|
+
+### LayerList
+
+|id|identifier|in_wms|in_wgc|
+|---|---|---|---|
+|l1|ch.kbs|true|true|
+
+### PropertiesInList
+
+|id_productlist|id_singleactor|sort|
+|---|---|---|
+|l1|s1|10|
+|l1|w1|5|
+
+
+

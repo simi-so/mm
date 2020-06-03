@@ -76,7 +76,7 @@ Daten ist das Styling als QML optional enthalten.
 |defaultView|boolean|j|Für ca. 3/4 der DS gibt es "nur" die Default-View. Bei defaultView=true setzt SIMI [name] auf "default". Default: true.|
 |remarks|String|n|Interne Bemerkungen zur DSV.|
 |styleServer|byte[]|n|QML-Datei, welche das Styling der Ebene in QGIS-Server bestimmt.|
-|styleClient|byte[]|n|QML-Datei, welche das Styling der Ebene in QGIS-Desktop bestimmt. Falls null und style_server <> null wird style_server verwendet.|
+|styleDesktop|byte[]|n|QML-Datei, welche das Styling der Ebene in QGIS-Desktop bestimmt. Falls null und style_server <> null wird style_server verwendet.|
 
 #### Konstraints
 
@@ -84,7 +84,7 @@ UK auf den FK zum SingleLayer.
 
 ### Beziehung SingleLayer - DataSetView
 
-Die 1 : 0..1 Beziehung existiert im Datenmodell bewusst. Motivationen:
+Die 0..1 : 0..1 Beziehung existiert im Datenmodell bewusst. Motivationen:
 * Schlanke "Schnittstelle" zwischen den Teilmodellen Core und Data.
 * Technisch: Möglichkeit, die Vererbungsstrategien für Dataproduct und Kinder in Core anders zu wählen wie für DSV und Kinder in Data.
 * "Poor-Man-Versioning": Es besteht die Möglichkeit, temporär mehrere DSV mit oder ohne verdoppelten DS zu halten. Beispielablauf:
@@ -162,9 +162,9 @@ GDI Postgres-Tabelle oder -View.
 
 |Name|Typ|Z|Beschreibung|
 |---|---|---|---|
-|idFieldName|String(100)|j|Name des Attributes, mit welchem die Objekte der Tabelle eindeutig identifiziert werden.|
+|idFieldName|String(100)|n|Name des Unique-Attributs für QGIS Server u. Desktop. Ist meistens die tid.|
 |rawDownload|boolean|j|Gibt an, ob die PostgresTable in der Form von AtOS, DataService, WFS bezogen werden kann. Default: Ja|
-|catSyncStamp|DateTime|j|Zeitpuntk des letzten Abgleiches mit dem effektiven Schema der Geodatenbank.|
+|catSyncStamp|DateTime|j|Zeitpunkt des letzten Abgleiches mit dem effektiven Schema der Geodatenbank.|
 |geomFieldName|String(100)|n|Name des Geometrieattributes. Null, wenn die Tabelle keine oder mehrere Geometrien umfasst.|
 
 ### Klasse TableField
@@ -178,8 +178,7 @@ Umfasst die Eigenschaften eines Attributs einer PostgresDS. Die Geometriespalten
 |name|String(100)|j|Name des Attributes in Postgres. Maximallänge in Postgres scheint 64 zu sein, darum String(100).|
 |typeName|String(100)|j|Name des Datentypes des Attributes.|
 |catSynced|boolean|j|Gibt an, ob das Attribut bei der letzten Katalogabfrage in der Datenbank vorhanden war.|
-|nameInShape|String(7)|n|Optional von Fachamt definierbarer Name für den Shapefileexport.|
-|description|String|n|Beschreibung (Metadaten) zum Attribut. Wird initial aus INTERLIS-Modell befüllt.|
+|remarks|String|n|Beschreibung (Metadaten) zum Attribut. Wird initial aus INTERLIS-Modell befüllt.|
 
 #### Konstraints
 
@@ -223,7 +222,7 @@ Postgres-Datenbank, in welcher das Schema (PostgresSchema) enthalten ist. Univer
 
 ### Klasse RasterView
 
-Enthält die Darstellungsdefinition für ein Raster-DataSet
+Enthält die Darstellungsdefinition für ein Raster-DataSet.
 
 #### Attributbeschreibung
 
@@ -275,7 +274,7 @@ Die Matrix-Tabelle bildet die Eigenschaften von tabellarischen DS und DSV bei un
 
 |id|name|model_name|schema_name|raw_url_pattern|raw_url_attributes|
 |---|---|---|---|---|---|
-|m1|Gewässerschutz (Edit)|PlanerischerGewaesser- schutz_LV95_V1_1|afu_gewaesserschutz|https://geo.so.ch/api/rawdata/gws_edit| |
+|m1|Gewässerschutz (Edit)|PlanerischerGewaesser schutz_LV95_V1_1|afu_gewaesserschutz|https://geo.so.ch/api/rawdata/gws_edit| |
 
 ### Klasse PostgresTable
 
@@ -298,7 +297,7 @@ Keine Einträge notwendig, da weder in API noch WGC enthalten.
 
 |id|name|model_name|schema_name|raw_url_pattern|raw_url_attributes|
 |---|---|---|---|---|---|
-|m1|Gewässerschutz|SO_AfU_Gewaesserschutz_ Publikation_20200115|afu_gewaesserschutz_pub|https://geo.so.ch/api/rawdata/gws| |
+|m1|Gewässerschutz|SO_AfU_Gewaesserschutz_ Publikation_20200115|afu_gewaesser schutz_pub|https://geo.so.ch/api/rawdata/gws| |
 
 ### Klasse PostgresTable
 
@@ -321,7 +320,7 @@ Keine Einträge notwendig, da weder in API noch WGC enthalten.
 
 |id|name|model_name|schema_name|raw_url_pattern|raw_url_attributes|
 |---|---|---|---|---|---|
-|m1|Nutzungsplanung (Edit)|SO_Nutzungsplanung_20171118|arp_npl|https://geo.so.ch/api/rawdata/npl_edit/{0}|\["bfs_gemeindenummer"\]|
+|m1|Nutzungsplanung (Edit)|SO_Nutzungs planung_20171118|arp_npl|https://geo.so.ch/api/rawdata/npl_edit/{0}|\["bfs_gemeindenummer"\]|
 
 Bemerkung: Der Record hat ein FK auf die TableView `agi_hoheitsgrenzen_pub.hoheitsgrenzen_gemeindegrenze [DEFAULT]`, da die
 Daten gemeindeweise nachgeführt werden. 
@@ -340,7 +339,7 @@ Keine Records, da Edit weder in API noch in WGC vorkommt.
 
 |id|name|model_name|schema_name|raw_url_pattern|raw_url_attributes|
 |---|---|---|---|---|---|
-|m1|Nutzungsplanung|SO_Nutzungsplanung_Publikation_20190909|arp_npl_pub|https://geo.so.ch/api/rawdata/npl| |
+|m1|Nutzungsplanung|SO_Nutzungsplanung_ Publikation_20190909|arp_npl_pub|https://geo.so.ch/api/rawdata/npl| |
 
 ### Klasse PostgresTable
 

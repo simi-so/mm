@@ -92,6 +92,13 @@ Die Attributtabellen sind sortiert gemäss:
 |-|Antwort...|-|
 |data DataTheme|Braucht es eine Klasse DataTheme? Diese ist nötig, wenn DataSets wie Beispielsweise die LIDAR-Produkte gruppiert als ein Paket abgegeben werden sollen (Kachel.zip mit DOM, DTM, Höhenlinien, ...).|Oliver|
 |-|Antwort...|-|
+|data bulk / object service|Steuerung vieleicht trennen. Datenbezug wird Modellweise freigeschaltet, Service-Booleans müssen auf TableView|Oliver|
+|-|Antwort...|-|
+|data taster|Wie soll die Bandselektion erfolgen? QML?|Stefan|
+|-|Antwort...|-|
+
+
+
 
 
 

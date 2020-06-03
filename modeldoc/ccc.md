@@ -12,7 +12,7 @@ Repräsentiert die Anbindung einer Fachapplikation via CCC-Schnittstelle.
 |---|---|---|---|
 |key|String|Ja|Sprechender Key dieser Integration, welche als appIntegration URL-Parameter verwendet wird.|
 |title|String|Ja|Titel, welcher für das "verheiratete" WGC-Fenster angezeigt wird.|
-|notes|String|Nein|Interne Bemerkungen des AGI zu dieser Anbindung.|
+|remarks|String|Nein|Interne Bemerkungen des AGI zu dieser Anbindung.|
 
 ## Klasse Locator Layer
 

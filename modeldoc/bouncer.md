@@ -30,7 +30,7 @@ Service (des Servers), dessen Ressourcen via Bouncer geschützt werden. Beispiel
 |---|---|---|---|
 |UrlTemplate|String(1000)|j|Template der URL des geschützten Service. In diese wird an der mittels Wildcard gekennzeichneten Stelle das UrlSnipplet der Ressource eingefügt.|
 |Name|String(100)|j|Sprechender Name für die Ressource.|
-|Description|String|n|AGI-Interne Beschreibung zur Ressource.|
+|Remarks|String|n|AGI-Interne Beschreibung zur Ressource.|
 
 ### Klasse Ressource
 
@@ -43,7 +43,7 @@ Daten in der Form von Tabellen / Karten / etc. ausgibt.
 |---|---|---|---|
 |UrlSnipplet|String(100)|j|Schnipsel, welches vom Bouncer in das URL-Template des BackgroundService eingefügt wird, um die Ressource mittels HTTP anzufordern.|
 |Name|String(100)|j|Sprechender Name für die Ressource. Muss ohne encoding als Unterpfad einer URL verwendet werden können. Sprich name = urlencode(name).|
-|Description|String|n|AGI-Interne Beschreibung zur Ressource.|
+|Remarks|String|n|AGI-Interne Beschreibung zur Ressource.|
 
 ### Klasse LayerRelation
 
