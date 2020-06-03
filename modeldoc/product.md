@@ -2,7 +2,7 @@
 
 Bildet alle möglichen Arten von Kartenebenen und deren Beziehung untereinander ab.
 
-![Core](../puml_output/simi_core.png)
+![Product](../puml_output/simi_product.png)
 
 ## Klasse DataProduct (DP)
 
@@ -102,7 +102,7 @@ Die Umwandlung von FL zu LL oder umgekehrt erfordert also etwas Handarbeit.
 ### Klasse SingleLayer (SL)
 
 Einzelebene, welche die Daten aus 
-* einer Postgres-Tabelle mit oder ohne Geometrie
+* einer Postgres-Tabelle oder -View mit oder ohne Geometrie
 * einem Geotif
 * ...
 bezieht.
@@ -126,15 +126,43 @@ Attributierte Verknüpfungstabelle der m:n Beziehung zwischen FL und SL.
 
 UK über die FK's.
 
-### Klasse ExtWmsLayer
+### Klasse ExtLayer
 
-Ebene eines externen WMS, der in GDI Gruppenebenen und Karten eingebunden ist.
+Externe Ebene, welche analog zu den internen Ebenen gesucht und in WGC und QGIS-Desktop geladen werden kann.
+Laden in QGIS-Desktop mittels SO-Locator. 
+
+Definition "Extern": Die Rohdaten der Ebene sind nicht als DataProduct erfasst. Gründe für nicht erfasste Rohdaten:
+* Stammt aus Dienst eines Servers ausserhalb des Kantons Solothurn.
+* Stammt aus Dienst einer Fachapplikation. 
+
+#### Attributbeschreibung
+
+Keine eigenen Attribute
+
+### Klasse WmsLayer
+
+Externe WMS-Ebene.
 
 #### Attributbeschreibung
 
 |Name|Typ|Z|Beschreibung|
 |---|---|---|---|
-|wmsURL|String(200)|j|URL des GDI-externen WMS.|
+|capabilitiesUrl|String(200)|j|URL für die "GetCapabilities" Abfrage des externen WMS.|
+|layerList|String(1000)|j|Json-Array der Identifier der abzufragenden externen WMS-Layer.|
+
+#### Konstraints
+
+UK über wmsURL und identifier. 
+
+### Klasse WmtsLayer
+
+Als Ebene eingebundener externer WMTS.
+
+#### Attributbeschreibung
+
+|Name|Typ|Z|Beschreibung|
+|---|---|---|---|
+|capabilitiesUrl|String(200)|j|URL für die "GetCapabilities" Abfrage des externen WMTS.|
 
 #### Konstraints
 
@@ -155,12 +183,6 @@ Attributierte Verknüpfungstabelle der m:n Beziehung zwischen PL und SA.
 ### Konstraints
 
 UK über die FK's.
-
-## Beispielkonfigurationen und resultierende Einträge in PL - SAL - SA:
-
-* Einzel publiziertes DS: Keine Beziehung zu einem PL
-* Einzel publizierter FL: Keine Beziehung zu einem PL
-* LL mit FL und DS: Je ein Eintrag fuer FL und DS in der SAL
 
 # Beispiele
 
@@ -187,6 +209,8 @@ Beipielsweise in der Archäologie werden kleine Denkmäler als Punktgeometrie, g
 |---|---|---|
 |f1|s1|10|
 |f1|s2|5|
+
+Keine Einträge in LayerList und PropertiesInList.
 
 ## Layergruppe (Productlist)
 

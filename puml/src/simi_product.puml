@@ -9,24 +9,31 @@ package Core {
   abstract class "SingleActor (SA)" as sa
   class "FacadeLayer (FL)" as fl
   class "SingleLayer (SL)" as sl
-  class "ExtWmsLayer" as ewl
+  class "ExtLayer" as el
+  class "WmsLayer" as wl
+  class "WmtsLayer" as tl
 
   class "PropertiesInFacade" as pif << (H, grey) Association Class >>
   class "PropertiesInList" as pil << (H, grey) Association Class >>
 
   dp <|-- pl
+
   pl <|-- ll
   pl <|-- map
 
   dp <|-- sa
+
   sa <|-- sl
   sa <|-- fl
-  sa <|-- ewl
+  sa <|-- el
+
+  el <|-- wl
+  el <|-- tl
 
   pl "1" -right- "1..n" pil : "      "
   pil "*" -right- "1" sa : "      "
 
-  map "*" -- "0..1" map : "foreground map - background map"
+  map "*" -- "0..1" map : "background"
 
   fl "1" -- "1..n" pif : "      "
   pif "*" -up- "1" sl : "      "

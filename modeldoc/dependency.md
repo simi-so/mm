@@ -14,7 +14,7 @@ Beispiele für Datenstrukturen:
 
 ![Dependency](../puml_output/simi_dependency.png) 
 
-Modelliert sind auch Abhängigkeiten einer Fachapplikation auf eine Map oder eine Layergroup (Wie beispielsweise bei Baugis, ArtPlus der Fall)
+Modelliert sind auch Abhängigkeiten einer Fachapplikation auf eine Map oder eine LayerList (Wie beispielsweise bei Baugis, ArtPlus der Fall)
 
 Nicht Modelliert ist, auf welche Applikation / Service sich die Abhängigkeit bezieht (Ob auf WGC, WMS, DataService, ...).
 Dies sollte der Dokumentation der Komponente entnommen werden können.
