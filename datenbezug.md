@@ -119,7 +119,7 @@ Allfällige Ausnahme-Datenabgaben in der Zugriffsberechtigungsstufe C werden dur
 |ID|Typ|Anforderung|
 |---|---|---|
 |1|muss|Die Attributnamen der Abgabeformate entsprechen 1:1 der Definition im INTERLIS-Modell<br/>Wo dies aufgrund von Formatlimitationen nicht möglich ist, wird eine automatisch erzeugte Abkürzung verwendet.|
-|2|muss|Die Klassennamen (Tabellennamen) entsprechen dem nicht qualifizierten Klassennamen des INTERLIS-Modelles.<br/>Ausnahme: XTF-Ausgabe richtet sich (natürlich) nach der INTERLIS-Spezifikation. $td: Unterschied zu Dataservice Identifier wird in kauf genommen? Gibt es geeignete Harmonisierungs-Moeglichkeiten?|
+|2|muss|Die Klassennamen (Tabellennamen) entsprechen dem nicht qualifizierten Klassennamen des INTERLIS-Modelles.<br/>Ausnahme: XTF-Ausgabe richtet sich (natürlich) nach der INTERLIS-Spezifikation. Zukünftig bestimmt der gewählte Klassenname den Identifier. A la ch.so.[Amt].[Modellname](.[Topicname]).[Klassenname]. Verwendung Topicname tbd...|
 |3|muss|Bei zugriffsgeschützten Themen werden "öffentliche Zwillinge" des Themas angeboten. In diesen fehlen die "heiklen" Attribute des zugriffsgeschützten Themas.<br/>Mögliche Ausnahme: ILI-XTF, da dies wohl der INTERLIS-Spezifikation widerspricht.|
 |3.1|muss|Gilt innerhalb eines Themas eine Klasse "als Ganzes" als zugriffsgeschützt, so wird das ganze Thema ausschliesslich zugriffsgeschützt abgegeben (ohne "öffentlichen Zwilling").|
-|4|muss|Für die API geltende Where-Clauses werden im Datenbezug NICHT berücksichtigt, da Aufwand-Ertrag in schlechtem Verhältnis steht.<br/>$td Harmonisierung dataservice: Nur TableViews ohne whereclause anbieten?. Was ist mit DB-Views?|
+|4|muss|Für die API geltende Where-Clauses werden im Datenbezug NICHT berücksichtigt, da Aufwand-Ertrag in schlechtem Verhältnis steht.<br/>Harmonisierung dataservice: In der Downloadliste werden nur Datendienstendpunkte der "Default"-TableView gelistet.|

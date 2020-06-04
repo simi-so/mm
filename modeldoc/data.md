@@ -13,6 +13,9 @@ Stellt die Klassen des Datenkonfigurationsteils dar
 
 DataTheme ist der enge fachlich-thematische Kontext, über den sich die Struktur des Datenbezuges definiert.
 
+Bemerkung: DataTheme wird besser erst mit Projekt "Datenbezug" in SIMI integriert. Damit keine umfangreichen
+Metamodellanpassungen mit SIMI anfallen, ist die Klasse jedoch im Vorprojekt Metamaster schon modelliert.
+
 #### Attributbeschreibung
 
 |Name|Typ|Z|Beschreibung|
@@ -72,11 +75,16 @@ Daten ist das Styling als QML optional enthalten.
 
 |Name|Typ|Z|Beschreibung|
 |---|---|---|---|
-|name|String(100)|j|Interne Bezeichnung der DataSetView, um diese von weiteren DSV's des gleichen DS unterscheiden zu können. Wird nur manuell gesetzt falls defaultView=false.|
-|defaultView|boolean|j|Für ca. 3/4 der DS gibt es "nur" die Default-View. Bei defaultView=true setzt SIMI [name] auf "default". Default: true.|
+|defaultView|boolean|j|Für ca. 3/4 der DS gibt es "nur" die Default-View. Default: true.|
+|name|String(100)|n|Interne Bezeichnung der DataSetView, um diese von weiteren DSV's des gleichen DS unterscheiden zu können. Wird nur manuell gesetzt falls defaultView=false.|
 |remarks|String|n|Interne Bemerkungen zur DSV.|
 |styleServer|byte[]|n|QML-Datei, welche das Styling der Ebene in QGIS-Server bestimmt.|
 |styleDesktop|byte[]|n|QML-Datei, welche das Styling der Ebene in QGIS-Desktop bestimmt. Falls null und style_server <> null wird style_server verwendet.|
+
+Bemerkungen zu der Default-View (defaultView=true):
+* SIMI setzt [name] auf NULL. Die defaultView hat den gleichen Identifier wie das DataSet. 
+* SIMI verhindert das Setzen einer WhereClause (Klasse TableView).
+* In der Regel umfasst die DefaultView alle Attribute des DS. Mögliche Ausnahme: Klasse mit zugriffsgeschütztem Attribut. 
 
 #### Konstraints
 
