@@ -27,6 +27,117 @@ Damit wird sichergestellt, dass die verschieden gelagerten Bedürfnisse gut abge
 Die Dienste sollen als gleichwertiges Angebot zum "klassischen" Dateibezug wahrgenommen werden. Entsprechend werden in der
 Downloadliste die Bezugsmöglichkeiten via Dienst und via Datei aufgeführt.
 
+## Arbeitsablauf für den Bezgug via Web GIS Client -> Downloadliste -> HTTP- / FTP-Adresse
+
+Hypothetisches Beispiel: Ein Benutzer möchte die Daten der Störfallverordnung und der Naturgefahrenhinweiskarte herunterladen.
+
+### Benutzer stellt sich die Kartensicht der Daten im Web GIS zusammen
+
+[Web GIS mit geladenen Karten](https://geo.so.ch/map/?bl=hintergrundkarte_sw&l=ch.so.afu.naturgefahrenhinweis.wassergefahren%2Cch.so.afu.naturgefahrenhinweis.rutschung%2Cch.so.afu.naturgefahrenhinweis.steinschlag%2Cch.so.afu.geologie.karst%2Cch.so.afu.gefahrenhinweiskarte_stfv&t=default&c=2627608%2C1239343&s=40000)
+
+In der Ebenen-Liste des Web GIS erhält er die folgenden Einträge:
+
+* Gemeindegrenzen
+* Störfallverordnung
+* Karst (Geologie)
+* Steinschläge (Naturgefahrenhinweiskarte)
+* Rutschungen (Naturgefahrenhinweiskarte)
+* Wassergefahren (Naturgefahrenhinweiskarte)
+
+Nun ruft er mittels Link (Knopfdruck im Web GIS) die Downloadliste auf.
+
+### Darstellung der "Bulk-Downloads" in der Downloadliste
+
+Der grundsätzliche Aufbau der Downloadliste richtet sich nach dem Datenthema (= nach den Datenklassen im INTERLIS-Modell). 
+Die Daten im Modell sind thematisch meist eng mitenander verwandt. Sie werden gemeinsam nachgeführt.
+
+Es werden also übersetzt die folgenden Datenpakete in der Downloadliste angeboten:
+* Hoheitsgrenzen (enthält die Gemeindegrenzen)
+* Störfallverordnung (enthält alle Tabellen der Störfallverordnung)
+* Naturgefahrenhinweise (enthält die Tabellen der Naturgefahrenhinweiskarte)
+* Geologie (enthält die Karst-Tabelle)
+
+Also vier "Hauptkasten". 
+
+Erläuterung mittels [Mockup](res/datenbezug1.jpg) der Downloadliste: In diesem sind als Beispiele die Datenthemen 
+(= Hauptkasten) Nutzungsplanung und Naturgefahren eingezeichnet.
+
+Die Datenthemen können in den folgenden Formaten bezogen werden:
+* Geopackage (*.gpkg)
+* INTERLIS 2 (*.xtf)
+* Shapefile (*.zip)
+* DxF (*.zip)
+
+Für Shapefile und DxF sind formatbedingt mehrere Dateien pro Datenthema vorhanden, darum jeweils in einem Zip paketiert. 
+
+### Darstellung der feingranularen Daten-Dienste in der Downloadliste
+
+Neben den "Bulk-Downloads" sollen auch die feingranularen Daten-Dienste prominent angeboten werden. Diese operieren
+jedoch auf Tabellen, nicht ganzen Datenthemen.
+Der Aspekt der Daten-Dienste ist nicht im [Mockup](res/datenbezug1.jpg) abgebildet, und muss geeignet ergänzt werden.
+
+Im Datenthema enthaltene Tabellen am Beispiel "Hoheitsgrenzen":
+* Tabelle Kantonsgrenze
+* Tabelle Bezirksgrenze
+* Tabelle Gemeindegrenze
+
+### Versuch eines tabellarischen Überblicks
+
+#### Gemeindegrenze
+
+|Web GIS Ebene|Datenthema|Tabellen im Datenthema|
+|---|---|---|
+|Gemeindegrenzen|Hoheitsgrenzen| |
+| | |Gemeindegrenzen|
+| | |Bezirksgrenzen|
+| | |Kantonsgrenze|
+
+Bezirks- und Kantonsgrenzen "kommen mit", obwohl sich der Benutzer nur für die Gemeindegrenzen interessiert.
+
+#### Störfallverordnung
+
+|Web GIS Ebene|Datenthema|Tabellen im Datenthema|
+|---|---|---|
+|Störfallverordnung|Störfallverordnung||
+| | |ÖV-Netz|
+| | |Koordinationsperimeter ÖV-Netz|
+| | |Nationalstrassen|
+| | |Koordinationsperimeter Nationalstrassen|
+| | |Durchgangsstrassen|
+| | |Koordinationsperimeter Durchgangsstrassen|
+| | |Betriebe|
+| | |Koordinationsperimeter Betriebe|
+| | |Gasleitungen|
+| | |Koordinationsperimeter Gasleitungen|
+
+### Zusammenfassung und Fragestellung
+
+#### "Dimensionen"
+
+Die Herausforderung liegt in der hohen "Mehrdimensionalität" der Informationsdarstellung im Web GIS und in der 
+Downloadliste.
+
+Web GIS Client:
+* Dimension Kartenebene. Eine Kartenebene kann mehrere Tabellen zusammenfassen, oder nur einen Teil einer Tabelle darstellen.
+
+Downloadliste:
+* Dimension "Kartenebene". Für den Kartendienst (WMS).
+* Dimension "Datenthema". Für die "Bulk-Downloads".
+* Dimension "Datenformat" für die "Bulk-Downloads".
+* Dimension "Tabelle" für die Datendienste.
+
+#### Fragestellungen
+
+Kann der Ablauf und die Benutzeroberfläche der Downloadliste so gestaltet werden, dass sich alle Benutzer gut zurecht finden?
+Stand heute nutzen die Architekten immer noch vorwiegend den "Bulk-Datenbezug" als DxF.
+
+Der Web GIS Client kommt im Ablauf vor, damit der Benutzer visuell bestätigt werden kann "Ja, das sind die Daten, die ich brauche".
+Dies bringt aber die zusätzliche Dimension und Komplexität der Kartenebenen ins Spiel. Kann das verstanden werden?
+Oder muss für das visuelle Sichten eine Ansicht erstellt werden, die sich näher an der Strukturierung der Daten orientiert? 
+
+Unter "alle Benutzer" zu verstehen sind Benutzer der im einleitenden Kapitel [Benutzergruppen](#benutzergruppen) genannten.
+
+Der Datenbezug muss für Benutzer ausserhalb der genannten Benutzergruppen **nicht** verständlich sein (out of scope). 
 
 ## Downloadliste
 
